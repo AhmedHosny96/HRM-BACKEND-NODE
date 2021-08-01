@@ -7,6 +7,13 @@ router.get("/", async (req, res) => {
   const branches = await Branch.find();
   res.send(branches);
 });
+//get branch
+
+router.get("/:id", async (req, res) => {
+  //find by id
+  const branch = await Branch.findById(req.params.id);
+  res.send(branch);
+});
 
 // creating new branch
 router.post("/", async (req, res) => {
@@ -32,7 +39,7 @@ router.post("/", async (req, res) => {
 
 //updating existing branches
 
-router.put("/", async (req, res) => {
+router.put("/:id", async (req, res) => {
   //validate
   const { error } = Validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -50,7 +57,13 @@ router.put("/", async (req, res) => {
   // check if branch exists
 
   if (!branch) return res.send(404).send("Branch doesnt exist");
-
+  // send the result
+  res.send(branch);
+});
+// deleting a branch
+router.delete("/:id", async (req, res) => {
+  // find the branch by id and remove
+  const branch = await Branch.findByIdAndRemove(req.params.id);
   res.send(branch);
 });
 

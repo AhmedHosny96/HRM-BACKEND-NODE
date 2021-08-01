@@ -22,13 +22,13 @@ const Branch = mongoose.model(
   })
 );
 
-function validateBranch() {
+function validateBranch(branch) {
   const schema = {
     name: Joi.string().required().min(3),
     city: Joi.string().required().min(3),
     state: Joi.string().required().min(5),
   };
-  return Joi.validate(Branch, schema);
+  return Joi.validate(branch, schema);
 }
 
 module.exports.Branch = Branch;

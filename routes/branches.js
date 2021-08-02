@@ -1,5 +1,5 @@
 const express = require("express");
-const { Branch, Validate } = require("../models/branch");
+const { Validate, Branch } = require("../models/branch");
 const router = express.Router();
 
 // getting all branches
@@ -32,7 +32,7 @@ router.post("/", async (req, res) => {
     city: req.body.city,
     state: req.body.state,
   });
-  branch = await branch.save();
+  await branch.save();
 
   res.send(branch);
 });

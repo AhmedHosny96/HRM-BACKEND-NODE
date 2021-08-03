@@ -7,24 +7,21 @@ const userSchema = new mongoose.Schema({
   name: {
     type: String,
     minlength: 5,
-    required: true,
   },
   email: {
     type: String,
     minlength: 8,
-    required: true,
   },
   password: {
     type: String,
     minlength: 6,
-    required: true,
   },
   isAdmin: Boolean,
 });
 
 //generating json web token  authentication
 userSchema.methods.generateAuthToken = function () {
-  jwt.sign();
+  //signing the token
   const token = jwt.sign(
     {
       _id: this.id,
@@ -38,12 +35,12 @@ userSchema.methods.generateAuthToken = function () {
   return token;
 };
 //defining mode for user schema
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("user", userSchema);
 
 function validateUser(user) {
   const schema = {
     name: Joi.string().min(4).required(),
-    email: Joi.string().min(8).required(),
+    email: Joi.string().min(8).email().required(),
     password: Joi.string().min(6).required(),
   };
   return Joi.validate(user, schema);

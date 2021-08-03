@@ -1,3 +1,6 @@
+
+
 {
-    "db" : "mongodb://localhost/HRM_DB"
+    "jwtPrivateKey" : "hrm_jwtPrivateKey"
 }
+    

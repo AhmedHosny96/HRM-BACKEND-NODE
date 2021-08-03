@@ -20,7 +20,7 @@ router.post("/", async (req, res) => {
   if (user) return res.status(400).send("User Already Registered");
 
   // create the user
-  user = new User(_.pick(req.body, [("name", "email", "password")]));
+  user = new User(_.pick(req.body, ["name", "email", "password"]));
   // salt the password
   const salt = await bcrypt.genSalt(10); // bcrypt is promise therefore await
   // hash the password with the salt

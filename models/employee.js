@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
-const Joi = require("joi-browser");
-// for validating embedded branch in employee document
-Joi.objectId = require("joi-objectid")(Joi);
+const Joi = require("joi");
+// const Joi = require("joi-browser");
+// // for validating embedded branch in employee document
+// Joi.objectId = require("joi-objectid")(Joi);
 const { branchSchema } = require("../models/branch");
 
 const Employee = mongoose.model(

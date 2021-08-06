@@ -1,4 +1,5 @@
 {
-    "db" : "mongodb://localhost/HRM_DB", 
+    "db" : "mongodb://localhost:27017/HRM_DB", 
     "jwtPrivateKey" : "key"
+    
 }

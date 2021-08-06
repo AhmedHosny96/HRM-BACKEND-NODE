@@ -3,6 +3,7 @@ const branches = require("../routes/branches");
 const employees = require("../routes/employees");
 const users = require("../routes/users");
 const login = require("../routes/login");
+const error = require("../middlewares/error");
 
 module.exports = function (app) {
   app.use(express.json());
@@ -10,4 +11,5 @@ module.exports = function (app) {
   app.use("/api/employees", employees);
   app.use("/api/users", users);
   app.use("/api/login", login);
+  app.use(error); //
 };

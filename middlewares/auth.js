@@ -3,10 +3,11 @@ const config = require("config");
 
 //authorizatuion modules
 
-module.export = function (req, res, next) {
+module.exports = function (req, res, next) {
+  // if (!config.get("requiresAuth")) return next();
   // check if header is present in the request
-  const token = res.header("x-auth-token");
-  if (!token) return res.status(401).send("Access Denied : No Token Provided.");
+  const token = req.header("x-auth-token"); //  response =>
+  if (!token) res.status(401).send("Access Denied : No Token Provided.");
 
   //check token validity
   try {
@@ -14,6 +15,6 @@ module.export = function (req, res, next) {
     req.user = decoded;
     next();
   } catch (ex) {
-    res.send("Invalid Token.");
+    res.status(400).send("Invalid Token.");
   }
 };

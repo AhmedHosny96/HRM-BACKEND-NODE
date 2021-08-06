@@ -4,10 +4,7 @@ const validateObjectId = require("../middlewares/validateObjectId"); // validati
 const { Employee, Validate } = require("../models/employee");
 const { Branch } = require("../models/branch");
 const router = express();
-<<<<<<< HEAD
-=======
 const uploads = multer({ dest: "document uploads/" });
->>>>>>> parent of 72d7aef (tested authentication with jwt and admin authorization)
 
 //getting employees
 

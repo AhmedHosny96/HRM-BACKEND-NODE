@@ -1,9 +1,10 @@
 const express = require("express");
-const app = express();
 const config = require("config");
+const app = express();
 
 require("./startup/logging")();
 require("./startup/db")();
+require("./startup/config")();
 require("./startup/routes")(app);
 
 const port = process.env.PORT || 5000;

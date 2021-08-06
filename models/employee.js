@@ -3,7 +3,6 @@ const Joi = require("joi-browser");
 Joi.objectId = require("joi-objectid")(Joi);
 
 const { branchSchema } = require("../models/branch");
-const { startsWith } = require("lodash");
 
 const Employee = mongoose.model(
   "Employee",

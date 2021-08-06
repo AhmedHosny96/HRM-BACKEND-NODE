@@ -1,7 +1,5 @@
 const express = require("express");
 const { Validate, Branch } = require("../models/branch");
-const auth = require("../middlewares/auth");
-const admin = require("../middlewares/admin");
 const router = express.Router();
 
 // getting all branches
@@ -18,7 +16,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // creating new branch
-router.post("/", [auth, admin], async (req, res) => {
+router.post("/", async (req, res) => {
   // validate the inputs
   const { error } = Validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);

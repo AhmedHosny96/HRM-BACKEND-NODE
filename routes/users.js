@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const router = express.Router();
 const { User, Validate } = require("../models/user");
 
-router.get("/aaaa", async (req, res) => {
+router.get("/", async (req, res) => {
   const users = await User.find();
   res.send(users);
 });

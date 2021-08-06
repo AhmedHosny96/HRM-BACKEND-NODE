@@ -1,9 +1,7 @@
 const express = require("express");
 const app = express();
 const config = require("config");
-const winston = require("winston");
 
-require("./startup/logging")();
 require("./startup/db")();
 require("./startup/routes")(app);
 

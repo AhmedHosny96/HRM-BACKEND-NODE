@@ -1,10 +1,13 @@
 const express = require("express");
+const multer = require("multer");
 const validateObjectId = require("../middlewares/validateObjectId"); // validating req.param.id
 const { Employee, Validate } = require("../models/employee");
 const { Branch } = require("../models/branch");
-const admin = require("../middlewares/admin");
-const auth = require("../middlewares/auth");
-const router = express.Router();
+const router = express();
+<<<<<<< HEAD
+=======
+const uploads = multer({ dest: "document uploads/" });
+>>>>>>> parent of 72d7aef (tested authentication with jwt and admin authorization)
 
 //getting employees
 
@@ -22,7 +25,7 @@ router.get("/:id", validateObjectId, async (req, res) => {
 
 // creating new employee
 
-router.post("/", async (req, res) => {
+router.post("/", uploads.array("document", 2), async (req, res) => {
   // validate inputs
   const { error } = Validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);

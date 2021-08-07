@@ -1,5 +1,5 @@
 const winston = require("winston");
-require("winston-mongodb"); // for storing logfiles in the mongodb
+// require("winston-mongodb"); // for storing logfiles in the mongodb
 require("express-async-error");
 
 module.exports = function () {
@@ -12,9 +12,9 @@ module.exports = function () {
     throw err;
   });
 
-  winston.add(winston.transports.File, { filename: "logfile.log" });
-  winston.add(winston.transports.MongoDB, {
-    db: "mongodb://localhost:27017/HRM_DB",
-    level: "info",
-  });
+  // winston.add(winston.transports.File, { filename: "logfile.log" });
+  // winston.add(winston.transports.MongoDB, {
+  //   db: "mongodb://localhost:27017/HRM_DB",
+  //   level: "info",
+  // });
 };

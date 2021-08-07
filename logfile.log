@@ -6,3 +6,5 @@
 {"level":"info","message":"Connected to DB mongodb://localhost/HRM_DB","timestamp":"2021-08-07T07:22:50.507Z"}
 {"level":"info","message":"listening on port 5000","timestamp":"2021-08-07T07:23:14.818Z"}
 {"level":"info","message":"Connected to DB mongodb://localhost/HRM_DB","timestamp":"2021-08-07T07:23:14.873Z"}
+{"level":"info","message":"listening on port 5000","timestamp":"2021-08-07T07:26:43.380Z"}
+{"level":"info","message":"Connected to DB mongodb://localhost/HRM_DB","timestamp":"2021-08-07T07:26:43.458Z"}

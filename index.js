@@ -1,6 +1,9 @@
 const express = require("express");
 const config = require("config");
 const app = express();
+const winston = require("winston");
+
+winston;
 
 require("./startup/logging")();
 require("./startup/db")();
@@ -13,5 +16,5 @@ if (!config.get("jwtPrivateKey"))
   console.log("FATAL ERROR : jwtPrivateKey is not defined");
 
 app.listen(port, () => {
-  console.log(`listening on port ${port}`);
+  winston.info(`listening on port ${port}`);
 });

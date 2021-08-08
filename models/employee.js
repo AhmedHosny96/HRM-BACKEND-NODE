@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
 const Joi = require("joi-browser");
 Joi.objectId = require("joi-objectid")(Joi);
-
-const { branchSchema } = require("../models/branch");
+const { branchSchema } = require("./branch");
 
 const Employee = mongoose.model(
   "Employee",
@@ -30,6 +29,12 @@ const Employee = mongoose.model(
       type: Number,
       required: true,
     },
+    image: {
+      data: Buffer,
+      type: String,
+      // required: true,
+      // data: Buffer,
+    },
   })
 );
 
@@ -40,6 +45,7 @@ function validateEmployee(employee) {
     branchId: Joi.objectId().required(), //validating branchId in the body of the req
     jobTitle: Joi.string().required(),
     salary: Joi.number().required(),
+    // image: Joi.binary().required(),
   };
 
   return Joi.validate(employee, schema);

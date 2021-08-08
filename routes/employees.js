@@ -1,8 +1,29 @@
 const express = require("express");
+const multer = require("multer");
+const path = require("path");
 const validateObjectId = require("../middlewares/validateObjectId"); // validating req.param.id
 const { Employee, Validate } = require("../models/employee");
 const { Branch } = require("../models/branch");
+
 const router = express();
+
+// multer configurations
+
+const uploadStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, "../uploads/"));
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+
+const uploads = multer({
+  storage: uploadStorage,
+  limits: {
+    fieldSize: 1024 * 1024 * 4,
+  },
+});
 
 //getting employees
 
@@ -20,7 +41,7 @@ router.get("/:id", validateObjectId, async (req, res) => {
 
 // creating new employee
 
-router.post("/", async (req, res) => {
+router.post("/", uploads.single("image"), async (req, res) => {
   // validate inputs
   const { error } = Validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -46,6 +67,7 @@ router.post("/", async (req, res) => {
     },
     jobTitle: req.body.jobTitle,
     salary: req.body.salary,
+    image: req.file.filename,
   });
   // saving data to db
   await employee.save();

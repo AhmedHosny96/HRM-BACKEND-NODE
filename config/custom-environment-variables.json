@@ -1,4 +1,3 @@
 {
-    "jwtPrivateKey" : "hrm_jwtPrivateKey"
+    "jwtPrivateKey" : "HRM_jwtPrivateKey"
 }
-    

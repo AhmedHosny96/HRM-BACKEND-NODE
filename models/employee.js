@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Joi = require("joi-browser");
 Joi.objectId = require("joi-objectid")(Joi);
+Joi.image = require("joi-image-extension");
 const { branchSchema } = require("./branch");
 
 const Employee = mongoose.model(
@@ -45,7 +46,7 @@ function validateEmployee(employee) {
     branchId: Joi.objectId().required(), //validating branchId in the body of the req
     jobTitle: Joi.string().required(),
     salary: Joi.number().required(),
-    // image: Joi.binary().required(),
+    image: Joi.required(),
   };
 
   return Joi.validate(employee, schema);

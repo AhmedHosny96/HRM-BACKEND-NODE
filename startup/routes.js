@@ -3,6 +3,7 @@ const branches = require("../routes/branches");
 const employees = require("../routes/employees");
 const users = require("../routes/users");
 const login = require("../routes/login");
+const jobs = require("../routes/jobs");
 const error = require("../middlewares/error");
 
 module.exports = function (app) {
@@ -11,5 +12,6 @@ module.exports = function (app) {
   app.use("/api/employees", employees);
   app.use("/api/users", users);
   app.use("/api/login", login);
+  app.use("/api/jobs/", jobs);
   app.use(error);
 };

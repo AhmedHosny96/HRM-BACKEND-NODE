@@ -10,16 +10,20 @@ const router = express();
 // multer configurations
 
 const uploadStorage = multer.diskStorage({
+  // define destination
   destination: function (req, file, cb) {
     cb(null, path.join(__dirname, "../uploads/"));
   },
+  //define how filename will look like
   filename: function (req, file, cb) {
     cb(null, file.originalname);
   },
 });
 
 const uploads = multer({
+  //storage
   storage: uploadStorage,
+  //file limit
   limits: {
     fieldSize: 1024 * 1024 * 4,
   },

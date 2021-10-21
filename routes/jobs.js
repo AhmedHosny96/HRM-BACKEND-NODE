@@ -1,10 +1,33 @@
 const express = require("express");
+const multer = require("multer");
+const path = require("path");
 const { Job, Validate } = require("../models/job");
 const validateId = require("../middlewares/validateObjectId");
 const router = express.Router();
 
+const uploadStorage = multer.diskStorage({
+  destination: function (req, res, cb) {
+    cb(null, path.join(__dirname, "../uploads"));
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+
+const uploads = multer({
+  storage: uploadStorage,
+  limits: {
+    fieldSize: 1024 * 1024 * 4,
+  },
+});
+
 router.get("/", async (req, res) => {
-  const jobs = await Job.find().select("-__v");
+  const jobs = await Job.find();
+  res.send(jobs);
+});
+
+router.get("/:id", async (req, res) => {
+  const jobs = await Job.findById(req.params.id);
   res.send(jobs);
 });
 
@@ -15,12 +38,13 @@ router.post("/", async (req, res) => {
   if (error) return res.status(400).send(error.details[0].message);
 
   //check if job already added
-  let job = await Job.findOne({ title: req.body.title });
+  let job = await Job.findOne({ name: req.body.name });
   if (job) return res.status(400).send("Job Already Added.");
 
   // create the new job
   job = new Job({
-    title: req.body.title,
+    name: req.body.name,
+    department: req.body.department,
   });
   // save data to DB
   await job.save();
@@ -37,7 +61,8 @@ router.put("/:id", validateId, async (req, res) => {
   const job = await Job.findByIdAndUpdate(
     req.params.id,
     {
-      title: req.body.title,
+      name: req.body.name,
+      department: req.body.department,
     },
     { new: true } // so default values are overridden
   );

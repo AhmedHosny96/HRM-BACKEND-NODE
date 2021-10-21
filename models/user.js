@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const config = require("config");
 const Joi = require("joi-browser");
+require("dotenv");
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -12,11 +13,23 @@ const userSchema = new mongoose.Schema({
     type: String,
     minlength: 8,
   },
+  phone: {
+    type: String,
+    minlength: 8,
+  },
+  userRole: {
+    type: String,
+    required: true,
+  },
   password: {
     type: String,
-    minlength: 6,
+    required: true,
   },
-  isAdmin: Boolean,
+  // isAdmin: Boolean,
+  // isVerified: {
+  //   type: Boolean,
+  //   default: false,
+  // },
 });
 
 //generating json web token  authentication
@@ -27,7 +40,8 @@ userSchema.methods.generateAuthToken = function () {
       _id: this.id,
       name: this.name,
       email: this.email,
-      isAdmin: this.isAdmin,
+      phone: this.phone,
+      userRole: this.userRole,
     },
     config.get("jwtPrivateKey")
   );
@@ -37,11 +51,13 @@ userSchema.methods.generateAuthToken = function () {
 const User = mongoose.model("user", userSchema);
 
 function validateUser(user) {
-  const schema = {
+  const schema = Joi.object({
     name: Joi.string().min(4).required(),
-    email: Joi.string().min(8).email().required(),
+    email: Joi.string().min(10).email().required(),
+    phone: Joi.number().required(),
+    userRole: Joi.string().required(),
     password: Joi.string().min(6).required(),
-  };
+  });
   return Joi.validate(user, schema);
 }
 

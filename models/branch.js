@@ -1,21 +1,23 @@
 const mongoose = require("mongoose");
 const Joi = require("joi-browser");
 
-const branchSchema = mongoose.Schema({
+const branchSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
     minlength: 3,
   },
+  region: {
+    type: String,
+  },
   city: {
     type: String,
     required: true,
-    minlength: 4,
   },
-  state: {
+
+  status: {
     type: String,
     required: true,
-    minlength: 2,
   },
 });
 
@@ -24,8 +26,9 @@ const Branch = mongoose.model("Branch", branchSchema);
 function validateBranch(branch) {
   const schema = {
     name: Joi.string().required().min(3),
+    region: Joi.string().required(),
     city: Joi.string().required().min(3),
-    state: Joi.string().required().min(2),
+    status: Joi.string().required().min(3),
   };
   return Joi.validate(branch, schema);
 }

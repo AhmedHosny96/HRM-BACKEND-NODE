@@ -1,25 +1,31 @@
 const mongoose = require("mongoose");
 const Joi = require("joi-browser");
 
-const Job = mongoose.model(
-  "Job",
-  new mongoose.Schema({
-    title: {
-      type: String,
-      minlength: 2,
-      maxlength: 255,
-      required: true,
-      trim: true,
-    },
-  })
-);
+const jobSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    minlength: 2,
+    // maxlength: 255,
+    required: true,
+  },
+  department: {
+    type: String,
+    minlength: 2,
+    // maxlength: 255,
+  },
+});
+
+const Job = mongoose.model("Job", jobSchema);
 
 function validateJob(job) {
   const schema = {
-    title: Joi.string().required(),
+    name: Joi.string().required().min(2),
+    department: Joi.string().required(),
+    // photo: Joi.string().required(),
   };
   return Joi.validate(job, schema);
 }
 
+module.exports.jobSchema = jobSchema;
 module.exports.Job = Job;
 module.exports.Validate = validateJob;

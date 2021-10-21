@@ -3,54 +3,81 @@ const Joi = require("joi-browser");
 Joi.objectId = require("joi-objectid")(Joi);
 Joi.image = require("joi-image-extension");
 const { branchSchema } = require("./branch");
+const { jobSchema } = require("./job");
 
-const Employee = mongoose.model(
-  "Employee",
-  new mongoose.Schema({
-    fullName: {
-      type: String,
-      minlength: 5,
-      required: true,
-    },
-    phoneNumber: {
-      type: Number,
-      minlength: 9,
-      required: true,
-    },
-    branch: {
-      type: branchSchema,
-      required: true,
-    },
-    jobTitle: {
-      type: String,
-      minlength: 5,
-      required: true,
-    },
-    salary: {
-      type: Number,
-      required: true,
-    },
-    image: {
-      data: Buffer,
-      type: String,
-      // required: true,
-      // data: Buffer,
-    },
-  })
-);
+// date extraction with out Time Zone
+
+const employeeSchema = new mongoose.Schema({
+  employeeId: {
+    type: String,
+    required: true,
+  },
+  fullName: {
+    type: String,
+    minlength: 5,
+    required: true,
+  },
+  phoneNumber: {
+    type: Number,
+    minlength: 9,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  gender: {
+    type: String,
+  },
+  branch: {
+    type: branchSchema,
+    required: true,
+  },
+  job: {
+    type: jobSchema,
+    required: true,
+  },
+  salary: {
+    type: Number,
+    required: true,
+  },
+  image: {
+    type: String,
+    data: Buffer,
+  },
+  startDate: {
+    type: Date,
+    required: true,
+  },
+  status: {
+    type: String,
+  },
+  employmentStatus: {
+    type: String,
+  },
+});
+
+const Employee = mongoose.model("Employee", employeeSchema);
 
 function validateEmployee(employee) {
   const schema = {
+    employeeId: Joi.string().required(),
     fullName: Joi.string().required(),
     phoneNumber: Joi.number().required(),
+    email: Joi.string().required().email(),
+    gender: Joi.string().required(),
     branchId: Joi.objectId().required(), //validating branchId in the body of the req
-    jobTitle: Joi.string().required(),
+    jobId: Joi.objectId().required(),
+    status: Joi.string().required(),
+    startDate: Joi.date().raw().required(),
+    employmentStatus: Joi.string().required(),
     salary: Joi.number().required(),
-    image: Joi.required(),
+    // image: Joi.any().required(),
   };
 
   return Joi.validate(employee, schema);
 }
 
+module.exports.employeeSchema = employeeSchema;
 module.exports.Employee = Employee;
 module.exports.Validate = validateEmployee;

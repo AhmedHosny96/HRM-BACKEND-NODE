@@ -1,12 +1,15 @@
 const express = require("express");
 const { Validate, Branch } = require("../models/branch");
+const multer = require("multer");
+const path = require("path");
+
 const admin = require("../middlewares/admin");
 const auth = require("../middlewares/auth");
 const router = express.Router();
 
 // getting all branches
 router.get("/", async (req, res) => {
-  const branches = await Branch.find();
+  const branches = await Branch.find({}, { __v: 0 });
   res.send(branches);
 });
 //get branch
@@ -18,21 +21,24 @@ router.get("/:id", async (req, res) => {
 });
 
 // creating new branch
-router.post("/", [auth], async (req, res) => {
+router.post("/", async (req, res) => {
   // validate the inputs
   const { error } = Validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   // check if branch already exists
 
-  let branch = await Branch.findOne({ name: req.body.name });
+  let branch = await Branch.findOne({
+    name: req.body.name,
+  });
   if (branch) return res.status(400).send("Branch Already Exists");
 
   // create the new branch
   branch = new Branch({
     name: req.body.name,
+    region: req.body.region,
     city: req.body.city,
-    state: req.body.state,
+    status: req.body.status,
   });
   await branch.save();
 
@@ -45,20 +51,30 @@ router.put("/:id", async (req, res) => {
   //validate
   const { error } = Validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
+  // check if branch exists
+
+  let branch = await Branch.findOne({
+    name: req.body.name,
+    region: req.body.region,
+    city: req.body.city,
+    status: req.body.status,
+  });
+  if (branch) return res.status(400).send("Branch Already Exist");
 
   // update
-  const branch = await Branch.findByIdAndUpdate(
+  branch = await Branch.findByIdAndUpdate(
     req.params.id,
     {
       name: req.body.name,
+      region: req.body.region,
       city: req.body.city,
-      state: req.body.state,
+      status: req.body.status,
     },
     { new: true }
   );
   // check if branch exists
 
-  if (!branch) return res.send(404).send("Branch doesnt exist");
+  if (!branch) return res.status(404).send("Branch doesnt exist");
   // send the result
   res.send(branch);
 });

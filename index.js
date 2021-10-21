@@ -1,20 +1,25 @@
+const path = require("path");
 const express = require("express");
 const config = require("config");
+
 const winston = require("winston");
 const morgan = require("morgan");
-const bodyParser = require("body-parser");
+const cors = require("cors");
 const app = express();
+
+require("dotenv").config();
 
 // logging requests in the console
 app.use(
   morgan("dev", {
     skip: function (req, res) {
-      return res.status < 400 + res.statusMessage;
+      return res.status < 400;
     },
   })
 );
-
-app.use(bodyParser.json());
+app.use("/public", express.static(path.join(__dirname, "public")));
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 require("./startup/logging")();
 require("./startup/db")();
@@ -29,5 +34,7 @@ if (!config.get("jwtPrivateKey"))
 const server = app.listen(port, () => {
   winston.info(`listening on port ${port}`);
 });
+
+console.log(process.env.KEY);
 
 module.exports = server;

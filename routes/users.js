@@ -1,17 +1,10 @@
-const express = require("express");
+const router = require("express").Router();
 const Joi = require("joi-browser");
-const path = require("path");
-const router = express.Router();
-
 const _ = require("lodash");
 const bcrypt = require("bcrypt");
 const { User, Validate } = require("../models/user");
 const { Token } = require("../models/token");
-
 const sendMail = require("../utils/sendMail");
-
-router.use("/public", express.static(path.join(__dirname, "public")));
-
 router.get("/", async (req, res) => {
   const users = await User.find();
   res.send(users);
@@ -62,151 +55,417 @@ router.post("/", async (req, res) => {
     req.body.email,
     "Rays Microfinance HRM system",
     ` 
-    <head>
-    <meta charset='utf-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <title>Snippet - GoSNippets</title>
-    <link href='https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css' rel='stylesheet'>
-    <link href='' rel='stylesheet'>
-    <style> @media screen {
-@font-face {
-font-family: 'Lato';
-font-style: normal;
-font-weight: 400;
-src: local('Lato Regular'), local('Lato-Regular'), url(https://fonts.gstatic.com/s/lato/v11/qIIYRU-oROkIk8vfvxw6QvesZW2xOQ-xsNqO47m55DA.woff) format('woff');
-}
+    <body>
+    <div style="background-color: #f9f9f9">
+    <!--[if mso | IE]>
+    <table
+       align="center" border="0" cellpadding="0" cellspacing="0" style="width:600px;" width="600"
+    >
+      <tr>
+        <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+    <![endif]-->
 
-@font-face {
-font-family: 'Lato';
-font-style: normal;
-font-weight: 700;
-src: local('Lato Bold'), local('Lato-Bold'), url(https://fonts.gstatic.com/s/lato/v11/qdgUG4U09HnJwhYI-uK18wLUuEpTyoUstqEm5AMlJo4.woff) format('woff');
-}
+    <div
+      style="
+        background: #f9f9f9;
+        background-color: #f9f9f9;
+        margin: 0px auto;
+        max-width: 600px;
+      "
+    >
+      <table
+        align="center"
+        border="0"
+        cellpadding="0"
+        cellspacing="0"
+        role="presentation"
+        style="background: #f9f9f9; background-color: #f9f9f9; width: 100%"
+      >
+        <tbody>
+          <tr>
+            <td
+              style="
+                border-bottom: #333957 solid 5px;
+                direction: ltr;
+                font-size: 0px;
+                padding: 20px 0;
+                text-align: center;
+                vertical-align: top;
+              "
+            >
+              <!--[if mso | IE]>
+                <table
+                  role="presentation"
+                  border="0"
+                  cellpadding="0"
+                  cellspacing="0"
+                >
+                  <tr></tr>
+                </table>
+              <![endif]-->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-@font-face {
-font-family: 'Lato';
-font-style: italic;
-font-weight: 400;
-src: local('Lato Italic'), local('Lato-Italic'), url(https://fonts.gstatic.com/s/lato/v11/RYyZNoeFgb0l7W3Vu1aSWOvvDin1pK8aKteLpeZ5c0A.woff) format('woff');
-}
-
-@font-face {
-font-family: 'Lato';
-font-style: italic;
-font-weight: 700;
-src: local('Lato Bold Italic'), local('Lato-BoldItalic'), url(https://fonts.gstatic.com/s/lato/v11/HkF_qI1x_noxlxhrhMQYELO3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
-}
-}
-
-/* CLIENT-SPECIFIC STYLES */
-body,
-table,
-td,
-a {
--webkit-text-size-adjust: 100%;
--ms-text-size-adjust: 100%;
-}
-
-table,
-td {
-mso-table-lspace: 0pt;
-mso-table-rspace: 0pt;
-}
-
-img {
--ms-interpolation-mode: bicubic;
-}
-
-/* RESET STYLES */
-img {
-border: 0;
-height: auto;
-line-height: 100%;
-outline: none;
-text-decoration: none;
-}
-
-table {
-border-collapse: collapse !important;
-}
-
-body {
-height: 100% !important;
-margin: 0 !important;
-padding: 0 !important;
-width: 100% !important;
-background-color: #f4f4f4;
-}
-
-/* iOS BLUE LINKS */
-a[x-apple-data-detectors] {
-color: inherit !important;
-text-decoration: none !important;
-font-size: inherit !important;
-font-family: inherit !important;
-font-weight: inherit !important;
-line-height: inherit !important;
-}
-
-/* MOBILE STYLES */
-@media screen and (max-width:600px) {
-h1 {
-font-size: 32px !important;
-line-height: 32px !important;
-}
-}
-
-/* ANDROID CENTER FIX */
-div[style*="margin: 16px 0;"] {
-margin: 0 !important;
-}</style>
-    <script type='text/javascript' src=''></script>
-    <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js'></script>
-    <script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js'></script>
-</head>    
-    <body oncontextmenu='return false' class='snippet-body'>
-    <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'Lato', Helvetica, Arial, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;"> We're thrilled to have you here! Get ready to dive into your new account. </div>
-<table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
-<tr>
-<td bgcolor="#ffffff" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
-<h1 style="font-size: 48px; font-weight: 400; margin: 2;">Welcome!</h1> <img src=${process.en.LOGO} width="125" height="120" style="display: block; border: 0px;" />
-</td>
-</tr>
-</table>
-</td>
-</tr>
-<tr>
-<td bgcolor="#f4f4f4" align="center" style="padding: 0px 10px 0px 10px;">
-<table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
-<tr>
-<td bgcolor="#ffffff" align="left" style="padding: 20px 30px 40px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-<p style="margin: 0;">We're excited to have you get started. First, you need to confirm your account. Just press the button below.</p>
-</td>
-</tr>
-<tr>
-<td bgcolor="#ffffff" align="left">
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-    <tr>
-        <td bgcolor="#ffffff" align="center" style="padding: 20px 30px 60px 30px;">
-            <table border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                    <td align="center" style="border-radius: 3px;" bgcolor="#FFA73B"><a href="#" target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #FFA73B; display: inline-block;">Confirm Account</a></td>
-                </tr>
-            </table>
+    <!--[if mso | IE]>
         </td>
-    </tr>
-</table>
-</td>
-</tr> <!-- COPY -->
-<tr>
-<td bgcolor="#ffffff" align="left" style="padding: 0px 30px 0px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-</td>
-</tr>
-</table>
-</td>
-</tr>
-</table>
-    <script type='text/javascript'></script>
+      </tr>
+    </table>
+    
+    <table
+       align="center" border="0" cellpadding="0" cellspacing="0" style="width:600px;" width="600"
+    >
+      <tr>
+        <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+    <![endif]-->
+
+    <div
+      style="
+        background: #fff;
+        background-color: #fff;
+        margin: 0px auto;
+        max-width: 600px;
+      "
+    >
+      <table
+        align="center"
+        border="0"
+        cellpadding="0"
+        cellspacing="0"
+        role="presentation"
+        style="background: #fff; background-color: #fff; width: 100%"
+      >
+        <tbody>
+          <tr>
+            <td
+              style="
+                border: #dddddd solid 1px;
+                border-top: 0px;
+                direction: ltr;
+                font-size: 0px;
+                padding: 20px 0;
+                text-align: center;
+                vertical-align: top;
+              "
+            >
+              <!--[if mso | IE]>
+                <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+              
+      <tr>
+    
+          <td
+             style="vertical-align:bottom;width:600px;"
+          >
+        <![endif]-->
+
+              <div
+                class="mj-column-per-100 outlook-group-fix"
+                style="
+                  font-size: 13px;
+                  text-align: left;
+                  direction: ltr;
+                  display: inline-block;
+                  vertical-align: bottom;
+                  width: 100%;
+                "
+              >
+                <table
+                  border="0"
+                  cellpadding="0"
+                  cellspacing="0"
+                  role="presentation"
+                  style="vertical-align: bottom"
+                  width="100%"
+                >
+                  <tr>
+                    <td
+                      align="center"
+                      style="
+                        font-size: 0px;
+                        padding: 10px 25px;
+                        word-break: break-word;
+                      "
+                    >
+                      <table
+                        align="center"
+                        border="0"
+                        cellpadding="0"
+                        cellspacing="0"
+                        role="presentation"
+                        style="border-collapse: collapse; border-spacing: 0px"
+                      >
+                        <tbody>
+                          <tr>
+                            
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td
+                      align="center"
+                      style="
+                        font-size: 0px;
+                        padding: 10px 25px;
+                        padding-bottom: 40px;
+                        word-break: break-word;
+                      "
+                    >
+                      <div
+                        style="
+                          font-family: Montserrat,Trebuchet MS,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Tahoma,sans-serif;
+                          font-size: 32px;
+                          font-weight: bold;
+                          line-height: 1;
+                          text-align: center;
+                          color: #555;
+                        "
+                      >
+                        Email Verification
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td
+                      align="center"
+                      style="
+                        font-size: 0px;
+                        padding: 10px 25px;
+                        padding-bottom: 0;
+                        word-break: break-word;
+                      "
+                    ></td>
+                  </tr>
+
+      
+                  <tr>
+                    <td
+                      align="center"
+                      style="
+                        font-size: 0px;
+                        padding: 10px 25px;                       
+                        word-break: break-word;
+                      "
+                    >
+                      <div
+                        style="
+                          font-family: Montserrat,Trebuchet MS,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Tahoma,sans-serif;
+                          font-size: 20px;
+                          line-height: 22px;
+                          font-weight : 20px;
+                          text-align: center;
+                          color: #555;
+                        "
+                      >
+                        Dear ${req.body.name} your are  registered in RMFI HRM system To verify click the button below.
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      align="center"
+                      style="
+                        font-size: 0px;
+                        padding: 10px 25px;
+                        padding-top: 30px;
+                        padding-bottom: 40px;
+                        word-break: break-word;
+                      "
+                    >
+                      <table
+                        align="center"
+                        border="0"
+                        cellpadding="0"
+                        cellspacing="0"
+                        role="presentation"
+                        style="border-collapse: separate; line-height: 100%"
+                      >
+                        <tr>
+                          <td
+                            align="center"
+                            bgcolor="#800080"
+                            role="presentation"
+                            style="
+                              border: none;
+                              border-radius: 3px;
+                              color: #ffffff;
+                              cursor: auto;
+                              padding: 15px 25px;
+                            "
+                            valign="middle"
+                          >
+                            <a
+                              style="
+                                
+                                color: #ffffff;
+                                font-family: Montserrat,Trebuchet MS,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Tahoma,sans-serif;
+                                font-size: 15px;
+                                font-weight: normal;
+                                line-height: 120%;
+                                margin: 0;
+                                border-radius : 10px;
+                                text-decoration: none;
+                                text-transform: none;
+                              "
+                              href=${emailLink}
+                            > 
+                              Verify Account
+                            </a>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!--[if mso | IE]>
+        </td>
+      </tr>
+    </table>
+    
+    <table
+       align="center" border="0" cellpadding="0" cellspacing="0" style="width:600px;" width="600"
+    >
+      <tr>
+        <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+    <![endif]-->
+
+    <div style="margin: 0px auto; max-width: 600px">
+      <table
+        align="center"
+        border="0"
+        cellpadding="0"
+        cellspacing="0"
+        role="presentation"
+        style="width: 100%"
+      >
+        <tbody>
+          <tr>
+            <td
+              style="
+                direction: ltr;
+                font-size: 0px;
+                padding: 20px 0;
+                text-align: center;
+                vertical-align: top;
+              "
+            >
+              <!--[if mso | IE]>
+                <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+              
+      <tr>
+    
+          <td
+             style="vertical-align:bottom;width:600px;"
+          >
+        <![endif]-->
+
+              <div
+                class="mj-column-per-100 outlook-group-fix"
+                style="
+                  font-size: 13px;
+                  text-align: left;
+                  direction: ltr;
+                  display: inline-block;
+                  vertical-align: bottom;
+                  width: 100%;
+                "
+              >
+                <table
+                  border="0"
+                  cellpadding="0"
+                  cellspacing="0"
+                  role="presentation"
+                  width="100%"
+                >
+                  <tbody>
+                    <tr>
+                      <td style="vertical-align: bottom; padding: 0">
+                        <table
+                          border="0"
+                          cellpadding="0"
+                          cellspacing="0"
+                          role="presentation"
+                          width="100%"
+                        >
+                          <tr>
+                            <td
+                              align="center"
+                              style="
+                                font-size: 0px;
+                                padding: 0;
+                                word-break: break-word;
+                              "
+                            >
+                             
+                            </td>
+                          </tr>
+
+                          <tr>
+                            <td
+                              align="center"
+                              style="
+                                font-size: 0px;
+                                padding: 10px;
+                                word-break: break-word;
+                              "
+                            >
+                              <div
+                                style="
+                                  font-family: 'Helvetica Neue', Arial,
+                                    sans-serif;
+                                  font-size: 12px;
+                                  font-weight: 300;
+                                  line-height: 1;
+                                  text-align: center;
+                                  color: #575757;
+                                "
+                              >
+                              Copyright @
+                                <a href="https://www.raysmfi.com/" style="color: #575757"
+                                  >Rays Microfinance Institution</a
+                                >
+                                
+                              </div>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!--[if mso | IE]>
+          </td>
+        
+      </tr>
+    
+                </table>
+              <![endif]-->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!--[if mso | IE]>
+        </td>
+      </tr>
+    </table>
+    <![endif]-->
+  </div>
     </body>
 `
   );

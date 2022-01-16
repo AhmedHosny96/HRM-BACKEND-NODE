@@ -9,7 +9,7 @@ const router = express.Router();
 
 // getting all branches
 router.get("/", async (req, res) => {
-  const branches = await Branch.find({}, { __v: 0 });
+  const branches = await Branch.find({}).sort({ name: 1 });
   res.send(branches);
 });
 //get branch
@@ -65,10 +65,7 @@ router.put("/:id", async (req, res) => {
   branch = await Branch.findByIdAndUpdate(
     req.params.id,
     {
-      name: req.body.name,
-      region: req.body.region,
-      city: req.body.city,
-      status: req.body.status,
+      $set: req.body,
     },
     { new: true }
   );

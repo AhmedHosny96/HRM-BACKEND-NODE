@@ -31,26 +31,23 @@ const employeeSchema = new mongoose.Schema({
   },
   branch: {
     type: branchSchema,
-    required: true,
+    // required: true,
   },
   job: {
     type: jobSchema,
-    required: true,
+    // required: true,
   },
   salary: {
     type: Number,
     required: true,
   },
-  image: {
-    type: String,
-    data: Buffer,
-  },
+
   startDate: {
     type: Date,
-    required: true,
   },
   status: {
     type: String,
+    default: "Active",
   },
   employmentStatus: {
     type: String,
@@ -65,14 +62,17 @@ function validateEmployee(employee) {
     fullName: Joi.string().required(),
     phoneNumber: Joi.number().required(),
     email: Joi.string().required().email(),
-    gender: Joi.string().required(),
+    gender: Joi.string(),
     branchId: Joi.objectId().required(), //validating branchId in the body of the req
     jobId: Joi.objectId().required(),
-    status: Joi.string().required(),
-    startDate: Joi.date().raw().required(),
-    employmentStatus: Joi.string().required(),
+    status: Joi.string(),
+    startDate: Joi.date(),
+    employmentStatus: Joi.string(),
     salary: Joi.number().required(),
     // image: Joi.any().required(),
+    branch: Joi.object(),
+    job: Joi.object(),
+    __v: Joi.number(),
   };
 
   return Joi.validate(employee, schema);

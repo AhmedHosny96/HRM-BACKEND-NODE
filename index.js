@@ -1,4 +1,3 @@
-const path = require("path");
 const express = require("express");
 const config = require("config");
 
@@ -17,7 +16,6 @@ app.use(
     },
   })
 );
-app.use("/public", express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
@@ -34,7 +32,5 @@ if (!config.get("jwtPrivateKey"))
 const server = app.listen(port, () => {
   winston.info(`listening on port ${port}`);
 });
-
-console.log(process.env.KEY);
 
 module.exports = server;

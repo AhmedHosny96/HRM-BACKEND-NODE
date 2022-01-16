@@ -1,25 +1,6 @@
-const express = require("express");
-const multer = require("multer");
-const path = require("path");
+const router = require("express").Router();
 const { Job, Validate } = require("../models/job");
 const validateId = require("../middlewares/validateObjectId");
-const router = express.Router();
-
-const uploadStorage = multer.diskStorage({
-  destination: function (req, res, cb) {
-    cb(null, path.join(__dirname, "../uploads"));
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  },
-});
-
-const uploads = multer({
-  storage: uploadStorage,
-  limits: {
-    fieldSize: 1024 * 1024 * 4,
-  },
-});
 
 router.get("/", async (req, res) => {
   const jobs = await Job.find();
@@ -43,6 +24,7 @@ router.post("/", async (req, res) => {
 
   // create the new job
   job = new Job({
+    code: req.body.code,
     name: req.body.name,
     department: req.body.department,
   });
@@ -61,8 +43,7 @@ router.put("/:id", validateId, async (req, res) => {
   const job = await Job.findByIdAndUpdate(
     req.params.id,
     {
-      name: req.body.name,
-      department: req.body.department,
+      $set: req.body,
     },
     { new: true } // so default values are overridden
   );

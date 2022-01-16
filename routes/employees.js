@@ -1,6 +1,5 @@
 const express = require("express");
-const multer = require("multer");
-const path = require("path");
+
 const moment = require("moment");
 
 const validateObjectId = require("../middlewares/validateObjectId"); // validating req.param.id
@@ -8,28 +7,6 @@ const { Employee, Validate } = require("../models/employee");
 const { Branch } = require("../models/branch");
 const { Job } = require("../models/job");
 const router = express();
-
-// multer configurations
-
-const uploadStorage = multer.diskStorage({
-  // define destination
-  destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, "../uploads/"));
-  },
-  //define how filename will look like
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  },
-});
-
-const uploads = multer({
-  //storage
-  storage: uploadStorage,
-  //file limit
-  limits: {
-    fieldSize: 1024 * 1024 * 4,
-  },
-});
 
 //getting employees
 
@@ -47,10 +24,10 @@ router.get("/:id", validateObjectId, async (req, res) => {
 
 // creating new employee
 
-router.post("/", uploads.single("image"), async (req, res) => {
+router.post("/", async (req, res) => {
   // validate inputs
-  const { error } = Validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  // const { error } = Validate(req.body);
+  // if (error) return res.status(400).send(error.details[0].message);
 
   // check if employee already exists in the db
 
@@ -67,11 +44,13 @@ router.post("/", uploads.single("image"), async (req, res) => {
   if (!job) return res.status(404).send("Invalid Job Id");
 
   employee = new Employee({
+    // $set: req.body,
     employeeId: req.body.employeeId,
     fullName: req.body.fullName,
     phoneNumber: req.body.phoneNumber,
     email: req.body.email,
     gender: req.body.gender,
+
     branch: {
       _id: branch._id,
       name: branch.name,
@@ -80,17 +59,14 @@ router.post("/", uploads.single("image"), async (req, res) => {
     },
     job: {
       _id: job._id,
+      code: job.code,
       name: job.name,
       department: job.department,
     },
     salary: req.body.salary,
-    image: req.file.originalname,
     status: req.body.status,
     startDate: req.body.startDate,
     employmentStatus: req.body.employmentStatus,
-    // image2: req.file.filename,
-    // image3: req.file.filename,
-    // image3: req.file.filename,
   });
   // saving data to db
   await employee.save();
@@ -100,7 +76,7 @@ router.post("/", uploads.single("image"), async (req, res) => {
 
 //updating employee records
 
-router.put("/:id", uploads.single("image"), async (req, res) => {
+router.put("/:id", async (req, res) => {
   //validate input fileds
 
   const { error } = Validate(req.body);
@@ -116,17 +92,43 @@ router.put("/:id", uploads.single("image"), async (req, res) => {
 
   // query options
 
-  const employee = await Employee.findByIdAndUpdate(
+  let employee = await Employee.findOne({
+    fullName: req.body.fullName,
+    phoneNumber: req.body.phoneNumber,
+    email: req.body.email,
+    // branch: {
+    //   status: branch.status,
+    //   _id: branch._id,
+    //   name: branch.name,
+    //   region: branch.region,
+    //   state: branch.state,
+    // },
+    // job: {
+    //   _id: job._id,
+    //   code: job.code,
+    //   name: job.name,
+    //   department: job.department,
+    // },
+    salary: req.body.salary,
+    startDate: req.body.startDate,
+    gender: req.body.gender,
+    status: req.body.status,
+    employmentStatus: req.body.employmentStatus,
+  });
+
+  if (employee) return res.status(400).send("Employee already registered");
+
+  employee = await Employee.findByIdAndUpdate(
     req.params.id,
     {
+      // $set: req.body,
       fullName: req.body.fullName,
       phoneNumber: req.body.phoneNumber,
       email: req.body.email,
-
       branch: {
         _id: branch._id,
         name: branch.name,
-        city: branch.city,
+        region: branch.region,
         state: branch.state,
       },
       job: {
@@ -135,10 +137,10 @@ router.put("/:id", uploads.single("image"), async (req, res) => {
         department: job.department,
       },
       salary: req.body.salary,
-      // startDate: req.body.startDate,
-      // gender: req.body.gender,
-      // status: req.body.status,
-      image: req.file.filename,
+      startDate: req.body.startDate,
+      gender: req.body.gender,
+      status: req.body.status,
+      employmentStatus: req.body.employmentStatus,
     },
     { new: true }
   );
@@ -151,6 +153,14 @@ router.put("/:id", uploads.single("image"), async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   const employee = await Employee.findByIdAndRemove(req.params.id);
+  res.send(employee);
+});
+
+// get employees by branchid
+
+router.get("/branch/:branchId", async (req, res) => {
+  const branchId = await Branch.findById(req.params.branchId);
+  const employee = await Employee.find({ "branch._id": branchId });
   res.send(employee);
 });
 

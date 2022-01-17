@@ -5,49 +5,51 @@ const Joi = require("joi-browser");
 const { employeeSchema } = require("./employee");
 require("dotenv");
 
-const userSchema = new mongoose.Schema(
-  {
-    employee: {
-      type: employeeSchema,
-    },
-    username: {
-      type: String,
-      minlength: 5,
-    },
-    email: {
-      type: String,
-      minlength: 8,
-    },
-    password: {
-      type: String,
-      required: true,
-    },
-
-    status: {
-      type: String,
-      enum: ["Pending", "Active", "Deactivated"],
-      default: "Pending",
-    },
-
-    isAdmin: {
-      type: Boolean,
-      default: false,
-    },
-    isHrOfficer: {
-      type: Boolean,
-      default: false,
-    },
-    isStaff: {
-      type: Boolean,
-      default: false,
-    },
-
-    token: { type: String, expires: 3600 },
-
-    // verification
+const userSchema = new mongoose.Schema({
+  employee: {
+    type: employeeSchema,
   },
-  { timestamps: true }
-);
+  username: {
+    type: String,
+    minlength: 5,
+  },
+  email: {
+    type: String,
+    minlength: 8,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+
+  status: {
+    type: String,
+    enum: ["Pending", "Active", "Deactivated"],
+    default: "Pending",
+  },
+
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
+  isHrOfficer: {
+    type: Boolean,
+    default: false,
+  },
+  isStaff: {
+    type: Boolean,
+    default: false,
+  },
+
+  token: { type: String },
+
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    expires: "2m",
+  },
+  // verification
+});
 
 //generating json web token  authentication
 userSchema.methods.generateAuthToken = function () {

@@ -9,6 +9,8 @@ const recruitments = require("../routes/recruitments");
 const documents = require("../routes/documents");
 const leaveRequests = require("../routes/leaveRequests");
 const leaves = require("../routes/leaves");
+const medicalExpenses = require("../routes/medicalExpenses");
+const medicalExpenseRequest = require("../routes/medicalExpenseRequest");
 
 module.exports = function (app) {
   app.use(express.json());
@@ -22,6 +24,8 @@ module.exports = function (app) {
   app.use("/api/employee/documents", documents);
   app.use("/api/employee/leave", leaveRequests);
   app.use("/api/leaves", leaves);
+  app.use("/api/medicalExpenses", medicalExpenses);
+  app.use("/api/employee/medicalExpenseRequest", medicalExpenseRequest);
 
   app.use(error);
 };

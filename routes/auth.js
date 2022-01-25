@@ -32,13 +32,14 @@ router.post("/", async (req, res) => {
 
   // generate auth token and return the token
   const token = user.generateAuthToken();
-  res.send(token);
+
+  res.header("token", token).send(token);
 });
 
 function validate(user) {
   const schema = {
-    email: Joi.string().min(8).required().email(),
-    password: Joi.string().min(6).required(),
+    email: Joi.string().required().email(),
+    password: Joi.string().required(),
   };
   return Joi.validate(user, schema);
 }

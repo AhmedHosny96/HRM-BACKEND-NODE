@@ -58,33 +58,32 @@ router.post("/", uploads.single("attachment"), async (req, res) => {
 
   // create the new documents
   documents = new Document({
-    employee: {
-      _id: employee._id,
-      employeeId: employee.employeeId,
-      fullName: employee.fullName,
-      phoneNumber: employee.phoneNumber,
-      branch: {
-        _id: employee.branch._id,
-        status: employee.branch.status,
-        name: employee.branch.name,
-        city: employee.branch.city,
-        region: employee.branch.region,
-      },
-      job: {
-        _id: employee.job._id,
-        code: employee.job.code,
-        name: employee.job.name,
-        department: employee.job.department,
-      },
-      email: employee.email,
-      salary: employee.salary,
-      status: employee.status,
-      employmentStatus: employee.employmentStatus,
-      gender: employee.gender,
-    },
+    // employee: {
+    //   _id: employee._id,
+    //   employeeId: employee.employeeId,
+    //   fullName: employee.fullName,
+    //   phoneNumber: employee.phoneNumber,
+    //   branch: {
+    //     _id: employee.branch._id,
+    //     status: employee.branch.status,
+    //     name: employee.branch.name,
+    //     city: employee.branch.city,
+    //     region: employee.branch.region,
+    //   },
+    //   job: {
+    //     _id: employee.job._id,
+    //     code: employee.job.code,
+    //     name: employee.job.name,
+    //     department: employee.job.department,
+    //   },
+    email: employee.email,
+    salary: employee.salary,
+    status: employee.status,
+    employmentStatus: employee.employmentStatus,
+    gender: employee.gender,
+    // },
 
     documentType: req.body.documentType,
-    addedDate: req.body.addedDate,
     details: req.body.details,
     attachment: req.file.originalname,
   });

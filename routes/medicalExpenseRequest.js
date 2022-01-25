@@ -18,16 +18,7 @@ router.post("/", async (req, res) => {
   const medicalExpense = await MedicalExpense.findById(
     req.body.medicalExpenseId
   );
-  if (!medicalExpense) return res.status(404).send("Invalid claim Id");
-
-  //   if (requestedDays > leave.numberOfDays)
-  //     return res
-  //       .status(400)
-  //       .send("you are requesting more than the allowed days");
-
-  //   // calculate avaliable leave days for employee
-
-  //   let availableLeave = leave.numberOfDays;
+  if (!medicalExpense) return res.status(404).send("Invalid medical claim");
 
   // check if leaveRequest already exists
   let medicalExpenseRequest = await MedicalExpenseRequest.findOne({
@@ -45,6 +36,12 @@ router.post("/", async (req, res) => {
 
   // create the new medicalExpenseRequest
   medicalExpenseRequest = new MedicalExpenseRequest({
+    medicalExpense: {
+      _id: medicalExpense._id,
+      name: medicalExpense.name,
+      allowedFor: medicalExpense.allowedFor,
+      allowedAmount: medicalExpense.allowedAmount,
+    },
     employee: {
       _id: employee._id,
       employeeId: employee.employeeId,
@@ -70,17 +67,13 @@ router.post("/", async (req, res) => {
       employmentStatus: employee.employmentStatus,
       gender: employee.gender,
     },
-    medicalExpense: {
-      _id: medicalExpense._id,
-      name: medicalExpense.name,
-      allowedFor: medicalExpense.allowedFor,
-      allowedAmount: medicalExpense.allowedAmount,
-    },
-    patientName: req.body.patientName,
+
+    patient: req.body.patient,
+    name: req.body.name,
     gender: req.body.gender,
     age: req.body.age,
-    relation: req.body.relation,
     hospitalName: req.body.hospitalName,
+    location: req.body.location,
     card: req.body.card,
     prescription: req.body.prescription,
     invoice: req.body.invoice,

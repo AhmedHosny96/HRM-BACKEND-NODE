@@ -1,10 +1,11 @@
 const router = require("express").Router();
 const { Recruitment, validateRecruitment } = require("../models/recruitment");
 const { Job } = require("../models/job");
+const { Branch } = require("../models/branch");
 
 // getting all recruitments
 router.get("/", async (req, res) => {
-  const recruitment = await Recruitment.find();
+  const recruitment = await Recruitment.find({}).sort({ status: -1 });
   res.send(recruitment);
 });
 //get recruitement
@@ -26,11 +27,13 @@ router.post("/", async (req, res) => {
   let recruitment = await Recruitment.findOne({
     name: req.body.name,
   });
-  if (recruitment) return res.status(400).send("recruitment Already Exists");
+  // if (recruitment) return res.status(400).send("recruitment Already Exists");
 
   const job = await Job.findById(req.body.jobId);
   if (!job) return res.status(404).send("Invalid Job Id");
 
+  const branch = await Branch.findById(req.body.branchId);
+  if (!branch) return res.status(404).send("Invalid branch Id");
   // create the new recruitment
   recruitment = new Recruitment({
     job: {
@@ -39,10 +42,14 @@ router.post("/", async (req, res) => {
       name: job.name,
       department: job.department,
     },
+    branch: {
+      _id: branch._id,
+      name: branch.name,
+      city: branch.city,
+      state: branch.state,
+    },
     requiredNumber: req.body.requiredNumber,
-    experience: req.body.experience,
     employementType: req.body.employementType,
-    department: req.body.department,
     details: req.body.details,
   });
   await recruitment.save();

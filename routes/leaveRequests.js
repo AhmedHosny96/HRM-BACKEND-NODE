@@ -21,18 +21,16 @@ router.post("/", async (req, res) => {
   var startDate = new Date(req.body.startDate);
   var returnDate = new Date(req.body.returnDate);
 
-  const requestedDays = Math.round(Math.abs((startDate - returnDate) / oneDay));
+  const dateInNumber = Math.round(Math.abs((startDate - returnDate) / oneDay));
 
   // check if employee is requesting more than the allowed days
 
-  if (requestedDays > leave.numberOfDays)
+  if (dateInNumber > leave.numberOfDays)
     return res
       .status(400)
       .send("you are requesting more than the allowed days");
 
   // calculate avaliable leave days for employee
-
-  let availableLeave = leave.numberOfDays;
 
   // check if leaveRequest already exists
   let leaveRequest = await LeaveRequest.findOne({
@@ -42,8 +40,16 @@ router.post("/", async (req, res) => {
   if (leaveRequest && leaveRequest.status !== "Approved")
     return res.status(400).send("Oops there is Pending leave request for you!");
 
-  // if (leaveRequest.status == "pending") {
-  //   return res.status(400).send("pending request....");
+  // takenDays = dateInNumber;
+  // const requestedDaysFromDb = await LeaveRequest.find(
+  //   {},
+  //   { requestedDays: 1, _id: 0 }
+  // );
+
+  // console.log("TOTAL REQUEST" + requestedDaysFromDb);
+
+  // if (requestedDaysFromDb) {
+  //   takenDays = requestedDaysFromDb + dateInNumber;
   // }
 
   // create the new leaveRequest
@@ -81,8 +87,8 @@ router.post("/", async (req, res) => {
     },
     startDate: req.body.startDate,
     returnDate: req.body.returnDate,
-    requestedDays: requestedDays,
-    availableDays: availableLeave - requestedDays,
+    requestedDays: dateInNumber,
+    takenDays: takenDays,
   });
 
   await leaveRequest.save();

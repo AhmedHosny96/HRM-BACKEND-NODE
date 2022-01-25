@@ -6,12 +6,18 @@ const validateObjectId = require("../middlewares/validateObjectId"); // validati
 const { Employee, Validate } = require("../models/employee");
 const { Branch } = require("../models/branch");
 const { Job } = require("../models/job");
+const auth = require("../middlewares/auth");
 const router = express();
 
 //getting employees
 
 router.get("/", async (req, res) => {
   const employees = await Employee.find();
+  res.send(employees);
+});
+
+router.get("/names", async (req, res) => {
+  const employees = await Employee.find({}, { _id: 0 }).select("fullName");
   res.send(employees);
 });
 

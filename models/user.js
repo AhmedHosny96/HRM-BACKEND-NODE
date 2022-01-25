@@ -43,11 +43,10 @@ const userSchema = new mongoose.Schema({
 
   token: { type: String },
 
-  createdAt: {
-    type: Date,
-    default: Date.now,
-    expires: "2m",
-  },
+  // createdAt: {
+  //   type: Date,
+  //   default: Date.now,
+  // },
   // verification
 });
 
@@ -67,7 +66,7 @@ userSchema.methods.generateAuthToken = function () {
 
       // userRole: this.userRole,
     },
-    config.get("jwtPrivateKey")
+    process.env.JWT_SEC
   );
   return token;
 };

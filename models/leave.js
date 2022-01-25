@@ -9,10 +9,10 @@ const leaveSchema = new mongoose.Schema(
     leaveGroup: {
       type: String,
     },
-    expirationDate: {
-      type: Date,
-      default: new Date().setFullYear(new Date().getFullYear() + 1, 0, 1),
-    },
+    // expirationDate: {
+    //   type: Date,
+    //   default: new Date().setFullYear(new Date().getFullYear() + 1, 0, 1),
+    // },
   },
   { timestamps: true }
 );

@@ -3,7 +3,7 @@ const { Job, Validate } = require("../models/job");
 const validateId = require("../middlewares/validateObjectId");
 
 router.get("/", async (req, res) => {
-  const jobs = await Job.find();
+  const jobs = await Job.find().sort({ name: 1 });
   res.send(jobs);
 });
 

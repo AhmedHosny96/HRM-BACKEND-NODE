@@ -12,7 +12,12 @@ router.get("/", async (req, res) => {
   const branches = await Branch.find({}).sort({ name: 1 });
   res.send(branches);
 });
-//get branch
+//get active branches only
+
+router.get("/open", async (req, res) => {
+  const branches = await Branch.find({ status: "Open" });
+  res.send(branches);
+});
 
 router.get("/:id", async (req, res) => {
   //find by id
@@ -38,7 +43,6 @@ router.post("/", async (req, res) => {
     name: req.body.name,
     region: req.body.region,
     city: req.body.city,
-    status: req.body.status,
   });
   await branch.save();
 

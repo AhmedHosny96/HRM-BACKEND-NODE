@@ -29,12 +29,12 @@ function validateBranch(branch) {
     name: Joi.string().required().min(3),
     region: Joi.string(),
     city: Joi.string().required().min(3),
-    status: Joi.string().required().min(3),
+    status: Joi.string(),
     createdAt: Joi.date(),
     updatedAt: Joi.date(),
+    __v: Joi.number(),
   };
   return Joi.validate(branch, schema);
 }
-module.exports.branchSchema = branchSchema;
-module.exports.Branch = Branch;
+module.exports = { Branch, branchSchema };
 module.exports.Validate = validateBranch;

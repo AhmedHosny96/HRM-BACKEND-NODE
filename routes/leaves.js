@@ -36,7 +36,7 @@ router.post("/", async (req, res) => {
 //updating existing leave
 router.put("/:id", async (req, res) => {
   // validate
-  const { error } = Validate(req.body);
+  const { error } = validateLeave(req.body);
   if (error) return res.status(400).send(error.details[0].message);
   // update obj
   const leave = await Leave.findByIdAndUpdate(

@@ -11,18 +11,25 @@ const medicalExpenseRequestSchema = mongoose.Schema(
     employee: {
       type: employeeSchema,
     },
-    patientName: {
+    patient: {
+      type: String,
+    },
+    name: {
       type: String,
     },
     gender: {
       type: String,
     },
-    Age: {
+    age: {
       type: String,
     },
-    relation: {
+    hospitalName: {
       type: String,
     },
+    location: {
+      type: String,
+    },
+
     card: {
       type: Boolean,
       default: false,
@@ -60,12 +67,12 @@ const MedicalExpenseRequest = mongoose.model(
 
 function validateRequest(medicalRequest) {
   const schema = {
-    medicalExpenseId: Joi.string().required(),
-    employeeId: Joi.string().required(),
-    patientName: Joi.string().required(),
+    medicalExpenseId: Joi.string(),
+    employeeId: Joi.string(),
+    patient: Joi.string().required(),
+    name: Joi.string(),
     gender: Joi.string(),
     age: Joi.number(),
-    relation: Joi.string(),
     hospitalName: Joi.string().required(),
     location: Joi.string().required(),
     card: Joi.any(),

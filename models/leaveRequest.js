@@ -19,7 +19,7 @@ const leaveRequestSchema = new mongoose.Schema(
     requestedDays: {
       type: Number,
     },
-    availableDays: {
+    takenDays: {
       type: Number,
     },
     status: {

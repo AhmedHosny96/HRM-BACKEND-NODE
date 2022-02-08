@@ -1,15 +1,5 @@
 const router = require("express").Router();
-const { Leave, validateLeave } = require("../models/leave");
-
-router.get("/", async (req, res) => {
-  const leaves = await Leave.find();
-  res.send(leaves);
-});
-
-router.get("/:id", async (req, res) => {
-  const leaves = await Leave.findById(req.params.id);
-  res.send(leaves);
-});
+const { validateLeave, LeaveTypes } = require("../models/leave");
 
 // adding new jobs
 router.post("/", async (req, res) => {
@@ -18,11 +8,11 @@ router.post("/", async (req, res) => {
   if (error) return res.status(400).send(error.details[0].message);
 
   //check if job already added
-  let leave = await Leave.findOne({ leaveType: req.body.leaveType });
+  let leave = await LeaveTypes.findOne({ leaveType: req.body.leaveType });
   if (leave) return res.status(400).send("leave Already Added.");
 
   // create the new leave
-  leave = new Leave({
+  leave = new LeaveTypes({
     leaveType: req.body.leaveType,
     numberOfDays: req.body.numberOfDays,
     leaveGroup: req.body.leaveGroup,
@@ -39,7 +29,7 @@ router.put("/:id", async (req, res) => {
   const { error } = validateLeave(req.body);
   if (error) return res.status(400).send(error.details[0].message);
   // update obj
-  const leave = await Leave.findByIdAndUpdate(
+  const leave = await LeaveTypes.findByIdAndUpdate(
     req.params.id,
     {
       $set: req.body, // so default values are overridden
@@ -51,8 +41,18 @@ router.put("/:id", async (req, res) => {
 });
 
 router.delete("/:id", async (req, res) => {
-  const leave = await Leave.findByIdAndRemove(req.params.id);
+  const leave = await LeaveTypes.findByIdAndRemove(req.params.id);
   res.send(leave);
+});
+
+router.get("/", async (req, res) => {
+  const leaves = await LeaveTypes.find({}).sort({ leaveType: 1 });
+  res.send(leaves);
+});
+
+router.get("/:id", async (req, res) => {
+  const leaves = await LeaveTypes.findById(req.params.id);
+  res.send(leaves);
 });
 
 module.exports = router;

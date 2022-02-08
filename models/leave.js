@@ -17,7 +17,7 @@ const leaveSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Leave = mongoose.model("Leave", leaveSchema);
+const LeaveTypes = mongoose.model("LeaveTypes", leaveSchema);
 
 function validateLeave(leave) {
   const schema = {
@@ -25,10 +25,11 @@ function validateLeave(leave) {
     numberOfDays: Joi.number().required(),
     leaveGroup: Joi.string().required(),
     // photo: Joi.string().required(),
+    createdAt: Joi.date(),
+    updatedAt: Joi.date(),
+    __v: Joi.number(),
   };
   return Joi.validate(leave, schema);
 }
 
-module.exports.leaveSchema = leaveSchema;
-module.exports.Leave = Leave;
-module.exports.validateLeave = validateLeave;
+module.exports = { leaveSchema, LeaveTypes, validateLeave };

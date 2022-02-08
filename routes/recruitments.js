@@ -50,7 +50,7 @@ router.post("/", async (req, res) => {
     },
     requiredNumber: req.body.requiredNumber,
     employementType: req.body.employementType,
-    details: req.body.details,
+    jobDescription: req.body.jobDescription,
   });
   await recruitment.save();
 

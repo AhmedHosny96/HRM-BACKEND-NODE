@@ -54,6 +54,10 @@ const medicalExpenseRequestSchema = mongoose.Schema(
       enum: ["Pending", "Approved", "Rejected"],
       default: "Pending",
     },
+    taken: {
+      type: Number,
+      default: 0,
+    },
   },
 
   { collation: { locale: "en", strength: 2 } },

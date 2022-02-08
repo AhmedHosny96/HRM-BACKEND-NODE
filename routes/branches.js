@@ -1,7 +1,6 @@
 const express = require("express");
 const { Validate, Branch } = require("../models/branch");
 const multer = require("multer");
-const path = require("path");
 
 const admin = require("../middlewares/admin");
 const auth = require("../middlewares/auth");

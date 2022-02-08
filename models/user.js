@@ -15,7 +15,6 @@ const userSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    minlength: 8,
   },
   password: {
     type: String,
@@ -24,30 +23,20 @@ const userSchema = new mongoose.Schema({
 
   status: {
     type: String,
-    enum: ["Pending", "Active", "Deactivated"],
-    default: "Pending",
+    enum: ["Not verified", "Verified", "Deactivated"],
+    default: "Not verified",
   },
 
   isAdmin: {
     type: Boolean,
     default: false,
   },
-  isHrOfficer: {
-    type: Boolean,
-    default: false,
-  },
-  isStaff: {
-    type: Boolean,
-    default: false,
+  firstLogin: {
+    type: Number,
+    default: 0,
   },
 
   token: { type: String },
-
-  // createdAt: {
-  //   type: Date,
-  //   default: Date.now,
-  // },
-  // verification
 });
 
 //generating json web token  authentication
@@ -56,12 +45,10 @@ userSchema.methods.generateAuthToken = function () {
   const token = jwt.sign(
     {
       _id: this.id,
-      name: this.username,
+      username: this.username,
       email: this.email,
-      phone: this.phone,
       isAdmin: this.isAdmin,
-      isHrOfficer: this.isHrOfficer,
-      isStaff: this.isStaff,
+      firstLogin: this.firstLogin,
       status: this.status,
 
       // userRole: this.userRole,
@@ -78,8 +65,7 @@ function validateUser(user) {
     employeeId: Joi.string().required(),
     username: Joi.string().min(4).required(),
     email: Joi.string().min(10).email().required(),
-    phone: Joi.number().required(),
-    password: Joi.string().min(6).required(),
+    password: Joi.string(),
   };
   return Joi.validate(user, schema);
 }

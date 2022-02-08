@@ -23,7 +23,7 @@ const recruitmentSchema = new mongoose.Schema(
     department: {
       type: String,
     },
-    details: {
+    jobDescription: {
       type: String,
     },
     status: {
@@ -42,7 +42,7 @@ function validateRecruitment(recruitment) {
     branchId: Joi.string().required().min(3),
     requiredNumber: Joi.number(),
     employementType: Joi.string().required(),
-    details: Joi.string(),
+    jobDescription: Joi.string(),
     status: Joi.string(),
   };
   return Joi.validate(recruitment, schema);

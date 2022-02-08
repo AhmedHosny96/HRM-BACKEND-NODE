@@ -4,7 +4,7 @@ const { employeeSchema } = require("./employee");
 
 const documentSchema = new mongoose.Schema(
   {
-    // employee: { type: employeeSchema },
+    employee: { type: employeeSchema },
     documentType: {
       type: String,
     },
@@ -12,7 +12,7 @@ const documentSchema = new mongoose.Schema(
     details: {
       type: String,
     },
-    // attachment: { type: String, data: Buffer },
+    attachment: { type: String, data: Buffer },
   },
   { timestamps: true }
 );
@@ -21,7 +21,7 @@ const Document = mongoose.model("Document", documentSchema);
 
 function validateDocument(document) {
   const schema = {
-    // employeeId: Joi.string().required().min(2),
+    employeeId: Joi.string().required().min(2),
     documentType: Joi.string().required().min(2),
     details: Joi.string().required(),
     attachment: Joi.any(),

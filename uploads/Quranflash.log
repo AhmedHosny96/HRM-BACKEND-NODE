@@ -1,0 +1,402 @@
+42......lang.txt file exists
+46......null
+47......MG DT: 1
+49......Manager step: 1
+692......MG DT: 2
+1020......MG DT: 3
+1022......Manager step: 2
+1025......MG DT: 3
+1027......Manager step: 3
+1041......MG DT: 4
+1091......MG DT: 5
+1205......MG DT: 6
+1567......MG DT: 7
+1598......MG DT: 8
+1601......Manager step: 8
+1604......BookBake.swf
+1696......MG DT: 9
+2801......os: Windows 8
+2805......C:\Users\User\AppData\Roaming\desktop.quranflash\Local Store\perm
+2811......app-storage:/perm
+2821......C:\Users\User\AppData\Roaming\desktop.quranflash\Local Store\permTemp
+2825......2.0
+2828......2.0
+2833......Manager step: 9
+2980......from down
+2983......bb step: 1
+2986......yooooo
+2989......C:\Users\User\AppData\Roaming\desktop.quranflash\Local Store\perm\books\Medina1/
+2991......
+2992......C:\Users\User\AppData\Roaming\desktop.quranflash\Local Store\perm\books\Medina1/settings.dat
+2994......OK
+2995......OK
+3004......DDD
+3005......complete
+3007......dmmmmm
+3008......from down
+3009......bb step: 2
+3018......from down
+3019......bb step: 3
+3020......from down
+3022......bb step: 4
+3023......from down
+3025......bb step: 5
+3026......from down
+3028......bb step: 6
+3043......from down
+3044......bb step: 7
+3057......from down
+3058......bb step: 8
+3095......from down
+3096......bb step: 9
+3134......from down
+3135......bb step: 10
+3191......from down
+3192......bb step: 11
+3240......from down
+3241......bb step: 12
+3242......from down
+3242......bb step: 13
+3263......from down
+3264......bb step: 14
+3298......from down
+3299......bb step: 15
+3301......MG DT: 10
+3302......Manager step: 10
+3303......MG DT: 11
+3304......Manager step: 11
+3305......from down
+3306......bb step: 16
+3341......MG DT: 12
+3342......Manager step: 12
+3343......loaded verses!
+3344......2
+3382......MG DT: 13
+3383......MG DT: 14
+3431......sub: 1
+3432......function Function() {}
+3433......oh?
+3434......getURLRequest Get file
+3434......[object Object]
+3435......Repository.dat
+3464......sub: 2
+3464......function Function() {}
+3465......oh?
+3466......getURLRequest Get file
+3467......[object Object]
+3467......C:\Users\User\AppData\Roaming\desktop.quranflash\Local Store\perm\books\Medina1/config.xml
+3474......sub: 3
+3475......function Function() {}
+3475......oh?
+3492......0  0  object  [object DynamicLoader]
+3493......1  1  object  [object DynamicLoader]
+3493......2  2  object  [object DynamicLoader]
+3497......sub: 4
+3498......function Function() {}
+3498......oh?
+3499......from down
+3500......bb step: 17
+3829......init tafseer
+3861......from down
+3862......bb step: 18
+3864......from down
+3865......bb step: 19
+3867......LISTEN!!!
+4362......checkForUpdates
+4429......false
+4528......false
+4596......false
+4985......Can't reach online uprade.xml file
+7096......0  110  object  [object DynamicLoader]
+7209......0  108  object  [object DynamicLoader]
+7210......1  111  object  [object DynamicLoader]
+7211......SequentialLoader when closing loader.. Error: Error #2029
+7212......1  107  object  [object DynamicLoader]
+7213......SequentialLoader when closing loader.. Error: Error #2029
+7214......1  112  object  [object DynamicLoader]
+7214......SequentialLoader when closing loader.. Error: Error #2029
+7215......1  217  object  [object DynamicLoader]
+7216......2  218  object  [object DynamicLoader]
+7326......0  218  object  [object DynamicLoader]
+7326......1  216  object  [object DynamicLoader]
+7327......SequentialLoader when closing loader.. Error: Error #2029
+7328......1  215  object  [object DynamicLoader]
+7329......SequentialLoader when closing loader.. Error: Error #2029
+7329......1  325  object  [object DynamicLoader]
+7330......2  326  object  [object DynamicLoader]
+7457......0  325  object  [object DynamicLoader]
+7458......1  326  object  [object DynamicLoader]
+7459......SequentialLoader when closing loader.. Error: Error #2029
+7459......1  324  object  [object DynamicLoader]
+7460......SequentialLoader when closing loader.. Error: Error #2029
+7461......1  323  object  [object DynamicLoader]
+7461......SequentialLoader when closing loader.. Error: Error #2029
+7462......1  433  object  [object DynamicLoader]
+7463......2  434  object  [object DynamicLoader]
+7566......false
+7634......false
+7669......false
+7752......false
+7828......false
+7935......false
+7942......constructHotSpots 543
+7943......in
+7945......ver: 2
+7946......<button x="66" y="57" w="345" h="38" id="v57_25_1"/>
+7948......<button x="66" y="95" w="345" h="38" id="v57_25_2"/>
+7949......<button x="66" y="132" w="345" h="38" id="v57_25_3"/>
+7950......<button x="239" y="170" w="172" h="38" id="v57_25_4"/>
+7951......<button x="66" y="170" w="173" h="38" id="v57_26_1"/>
+7951......<button x="66" y="207" w="345" h="38" id="v57_26_2"/>
+7952......<button x="217" y="245" w="194" h="38" id="v57_26_3"/>
+7953......<button x="66" y="245" w="151" h="38" id="v57_27_1"/>
+7954......<button x="66" y="282" w="345" h="38" id="v57_27_2"/>
+7955......<button x="66" y="320" w="345" h="38" id="v57_27_3"/>
+7956......<button x="66" y="357" w="345" h="38" id="v57_27_4"/>
+7957......<button x="66" y="395" w="345" h="38" id="v57_27_5"/>
+7957......<button x="258" y="432" w="153" h="38" id="v57_27_6"/>
+7958......<button x="66" y="432" w="192" h="38" id="v57_28_1"/>
+7959......<button x="66" y="470" w="345" h="38" id="v57_28_2"/>
+7960......<button x="133" y="507" w="279" h="38" id="v57_28_3"/>
+7961......<button x="66" y="507" w="67" h="38" id="v57_29_1"/>
+7961......<button x="66" y="545" w="345" h="38" id="v57_29_2"/>
+7962......<button x="66" y="582" w="345" h="38" id="v57_29_3"/>
+7964......constructHotSpots 544
+7965......in
+7968......ver: 2
+7968......<button x="66" y="132" w="345" h="38" id="v58_1_1"/>
+7969......<button x="148" y="170" w="263" h="38" id="v58_1_2"/>
+7970......<button x="66" y="170" w="82" h="38" id="v58_2_1"/>
+7971......<button x="66" y="207" w="345" h="38" id="v58_2_2"/>
+7972......<button x="66" y="245" w="345" h="38" id="v58_2_3"/>
+7973......<button x="297" y="282" w="114" h="38" id="v58_2_4"/>
+7974......<button x="66" y="282" w="231" h="38" id="v58_3_1"/>
+7975......<button x="66" y="320" w="345" h="38" id="v58_3_2"/>
+7976......<button x="227" y="357" w="184" h="38" id="v58_3_3"/>
+7976......<button x="66" y="357" w="161" h="38" id="v58_4_1"/>
+7977......<button x="66" y="395" w="345" h="38" id="v58_4_2"/>
+7978......<button x="66" y="432" w="345" h="38" id="v58_4_3"/>
+7979......<button x="251" y="470" w="160" h="38" id="v58_4_4"/>
+7980......<button x="66" y="470" w="185" h="38" id="v58_5_1"/>
+7980......<button x="66" y="507" w="345" h="38" id="v58_5_2"/>
+7981......<button x="254" y="545" w="157" h="38" id="v58_5_3"/>
+7982......<button x="66" y="545" w="188" h="38" id="v58_6_1"/>
+7983......<button x="66" y="582" w="345" h="38" id="v58_6_2"/>
+8009......0  544  object  [object DynamicLoader]
+8033......false
+8106......false
+8200......false
+8287......false
+8353......false
+8394......false
+8561......false
+8629......false
+8762......false
+8828......false
+29030......0  476  object  [object DynamicLoader]
+29032......1  475  object  [object DynamicLoader]
+29176......0  475  object  [object DynamicLoader]
+29177......1  474  object  [object DynamicLoader]
+29178......SequentialLoader when closing loader.. Error: Error #2029
+29179......1  473  object  [object DynamicLoader]
+29180......SequentialLoader when closing loader.. Error: Error #2029
+29181......1  408  object  [object DynamicLoader]
+29181......2  477  object  [object DynamicLoader]
+29182......3  407  object  [object DynamicLoader]
+29183......4  478  object  [object DynamicLoader]
+29308......0  477  object  [object DynamicLoader]
+29309......1  407  object  [object DynamicLoader]
+29309......SequentialLoader when closing loader.. Error: Error #2029
+29310......1  478  object  [object DynamicLoader]
+29311......SequentialLoader when closing loader.. Error: Error #2029
+29311......1  406  object  [object DynamicLoader]
+29312......SequentialLoader when closing loader.. Error: Error #2029
+29313......1  405  object  [object DynamicLoader]
+29314......SequentialLoader when closing loader.. Error: Error #2029
+29314......1  340  object  [object DynamicLoader]
+29315......2  409  object  [object DynamicLoader]
+29316......3  339  object  [object DynamicLoader]
+29317......4  410  object  [object DynamicLoader]
+29459......0  340  object  [object DynamicLoader]
+29460......1  409  object  [object DynamicLoader]
+29461......SequentialLoader when closing loader.. Error: Error #2029
+29462......1  339  object  [object DynamicLoader]
+29463......SequentialLoader when closing loader.. Error: Error #2029
+29463......1  410  object  [object DynamicLoader]
+29464......SequentialLoader when closing loader.. Error: Error #2029
+29465......1  338  object  [object DynamicLoader]
+29466......SequentialLoader when closing loader.. Error: Error #2029
+29467......1  337  object  [object DynamicLoader]
+29468......SequentialLoader when closing loader.. Error: Error #2029
+29469......1  272  object  [object DynamicLoader]
+29470......2  341  object  [object DynamicLoader]
+29472......3  271  object  [object DynamicLoader]
+29473......4  342  object  [object DynamicLoader]
+29564......false
+29637......false
+29778......false
+29848......false
+29921......false
+29978......constructHotSpots 209
+29979......in
+29983......ver: 2
+29984......<button x="66" y="57" w="345" h="38" id="v9_123_1"/>
+29985......<button x="66" y="95" w="345" h="38" id="v9_123_2"/>
+29986......<button x="394" y="132" w="17" h="38" id="v9_123_3"/>
+29987......<button x="66" y="132" w="328" h="38" id="v9_124_1"/>
+29988......<button x="66" y="170" w="345" h="38" id="v9_124_2"/>
+29989......<button x="288" y="207" w="123" h="38" id="v9_124_3"/>
+29990......<button x="66" y="207" w="222" h="38" id="v9_125_1"/>
+29991......<button x="104" y="245" w="307" h="38" id="v9_125_2"/>
+29992......<button x="66" y="245" w="38" h="38" id="v9_126_1"/>
+29993......<button x="66" y="282" w="345" h="38" id="v9_126_2"/>
+29994......<button x="121" y="320" w="290" h="38" id="v9_126_3"/>
+29995......<button x="66" y="320" w="55" h="38" id="v9_127_1"/>
+29996......<button x="66" y="357" w="345" h="38" id="v9_127_2"/>
+29997......<button x="66" y="395" w="345" h="38" id="v9_127_3"/>
+29998......<button x="297" y="432" w="114" h="38" id="v9_127_4"/>
+29999......<button x="66" y="432" w="231" h="38" id="v9_128_1"/>
+30000......<button x="66" y="470" w="345" h="38" id="v9_128_2"/>
+30000......<button x="275" y="507" w="136" h="38" id="v9_128_3"/>
+30001......<button x="66" y="507" w="209" h="38" id="v9_129_1"/>
+30002......<button x="66" y="545" w="345" h="38" id="v9_129_2"/>
+30003......constructHotSpots 210
+30004......in
+30007......ver: 2
+30007......<button x="177" y="95" w="234" h="38" id="v10_1_1"/>
+30008......<button x="66" y="95" w="111" h="38" id="v10_2_1"/>
+30009......<button x="66" y="132" w="345" h="38" id="v10_2_2"/>
+30010......<button x="66" y="170" w="345" h="38" id="v10_2_3"/>
+30011......<button x="267" y="207" w="144" h="38" id="v10_2_4"/>
+30012......<button x="66" y="207" w="201" h="38" id="v10_3_1"/>
+30013......<button x="66" y="245" w="345" h="38" id="v10_3_2"/>
+30014......<button x="66" y="282" w="345" h="38" id="v10_3_3"/>
+30015......<button x="317" y="320" w="94" h="38" id="v10_3_4"/>
+30016......<button x="66" y="320" w="251" h="38" id="v10_4_1"/>
+30017......<button x="66" y="357" w="345" h="38" id="v10_4_2"/>
+30017......<button x="66" y="395" w="345" h="38" id="v10_4_3"/>
+30018......<button x="205" y="432" w="206" h="38" id="v10_4_4"/>
+30019......<button x="66" y="432" w="139" h="38" id="v10_5_1"/>
+30020......<button x="66" y="470" w="345" h="38" id="v10_5_2"/>
+30021......<button x="66" y="507" w="345" h="38" id="v10_5_3"/>
+30021......<button x="305" y="545" w="106" h="38" id="v10_5_4"/>
+30022......<button x="66" y="545" w="239" h="38" id="v10_6_1"/>
+30023......<button x="66" y="582" w="345" h="38" id="v10_6_2"/>
+30045......0  210  object  [object DynamicLoader]
+30046......1  273  object  [object DynamicLoader]
+30047......SequentialLoader when closing loader.. Error: Error #2029
+30048......1  209  object  [object DynamicLoader]
+30048......2  274  object  [object DynamicLoader]
+30069......false
+30116......false
+30185......false
+30257......false
+30316......false
+30395......false
+30580......false
+30661......false
+30730......false
+30829......false
+30895......false
+30962......false
+31029......false
+31619......keydown!
+31622......37
+32098......constructHotSpots 211
+32099......in
+32103......ver: 2
+32104......<button x="66" y="57" w="345" h="38" id="v10_7_1"/>
+32106......<button x="164" y="95" w="247" h="38" id="v10_7_2"/>
+32106......<button x="66" y="95" w="98" h="38" id="v10_8_1"/>
+32108......<button x="219" y="132" w="192" h="38" id="v10_8_2"/>
+32109......<button x="66" y="132" w="153" h="38" id="v10_9_1"/>
+32110......<button x="66" y="170" w="345" h="38" id="v10_9_2"/>
+32111......<button x="234" y="207" w="177" h="38" id="v10_9_3"/>
+32112......<button x="66" y="207" w="168" h="38" id="v10_10_1"/>
+32113......<button x="66" y="245" w="345" h="38" id="v10_10_2"/>
+32114......<button x="270" y="282" w="141" h="38" id="v10_10_3"/>
+32115......<button x="66" y="282" w="204" h="38" id="v10_11_1"/>
+32115......<button x="66" y="320" w="345" h="38" id="v10_11_2"/>
+32117......<button x="174" y="357" w="237" h="38" id="v10_11_3"/>
+32118......<button x="66" y="357" w="108" h="38" id="v10_12_1"/>
+32119......<button x="66" y="395" w="345" h="38" id="v10_12_2"/>
+32119......<button x="66" y="432" w="345" h="38" id="v10_12_3"/>
+32120......<button x="196" y="470" w="215" h="38" id="v10_12_4"/>
+32121......<button x="66" y="470" w="130" h="38" id="v10_13_1"/>
+32122......<button x="66" y="507" w="345" h="38" id="v10_13_2"/>
+32123......<button x="140" y="545" w="271" h="38" id="v10_13_3"/>
+32124......<button x="66" y="545" w="74" h="38" id="v10_14_1"/>
+32125......<button x="66" y="582" w="345" h="38" id="v10_14_2"/>
+32126......constructHotSpots 212
+32126......in
+32129......ver: 2
+32130......<button x="66" y="57" w="345" h="38" id="v10_15_1"/>
+32131......<button x="66" y="95" w="345" h="38" id="v10_15_2"/>
+32132......<button x="66" y="132" w="345" h="38" id="v10_15_3"/>
+32138......<button x="90" y="170" w="321" h="38" id="v10_15_4"/>
+32139......<button x="66" y="170" w="24" h="38" id="v10_16_1"/>
+32139......<button x="66" y="207" w="345" h="38" id="v10_16_2"/>
+32141......<button x="66" y="245" w="345" h="38" id="v10_16_3"/>
+32141......<button x="66" y="282" w="345" h="38" id="v10_17_1"/>
+32142......<button x="214" y="320" w="197" h="38" id="v10_17_2"/>
+32143......<button x="66" y="320" w="148" h="38" id="v10_18_1"/>
+32144......<button x="66" y="357" w="345" h="38" id="v10_18_2"/>
+32144......<button x="66" y="395" w="345" h="38" id="v10_18_3"/>
+32145......<button x="94" y="432" w="317" h="38" id="v10_18_4"/>
+32146......<button x="66" y="432" w="28" h="38" id="v10_19_1"/>
+32147......<button x="66" y="470" w="345" h="38" id="v10_19_2"/>
+32148......<button x="66" y="507" w="345" h="38" id="v10_19_3"/>
+32149......<button x="391" y="545" w="20" h="38" id="v10_19_4"/>
+32151......<button x="66" y="545" w="325" h="38" id="v10_20_1"/>
+32152......<button x="66" y="582" w="345" h="38" id="v10_20_2"/>
+32830......false
+32894......false
+133216......keydown!
+133219......37
+133699......constructHotSpots 213
+133700......in
+133703......ver: 2
+133704......<button x="66" y="57" w="345" h="38" id="v10_21_1"/>
+133705......<button x="66" y="95" w="345" h="38" id="v10_21_2"/>
+133707......<button x="388" y="132" w="23" h="38" id="v10_21_3"/>
+133708......<button x="66" y="132" w="322" h="38" id="v10_22_1"/>
+133709......<button x="66" y="170" w="345" h="38" id="v10_22_2"/>
+133711......<button x="66" y="207" w="345" h="38" id="v10_22_3"/>
+133712......<button x="66" y="245" w="345" h="38" id="v10_22_4"/>
+133713......<button x="317" y="282" w="94" h="38" id="v10_22_5"/>
+133714......<button x="66" y="282" w="251" h="38" id="v10_23_1"/>
+133715......<button x="66" y="320" w="345" h="38" id="v10_23_2"/>
+133716......<button x="66" y="357" w="345" h="38" id="v10_23_3"/>
+133716......<button x="66" y="395" w="345" h="38" id="v10_24_1"/>
+133718......<button x="66" y="432" w="345" h="38" id="v10_24_2"/>
+133719......<button x="66" y="470" w="345" h="38" id="v10_24_3"/>
+133720......<button x="66" y="507" w="345" h="38" id="v10_24_4"/>
+133720......<button x="134" y="545" w="277" h="38" id="v10_24_5"/>
+133721......<button x="66" y="545" w="68" h="38" id="v10_25_1"/>
+133722......<button x="66" y="582" w="345" h="38" id="v10_25_2"/>
+133723......constructHotSpots 214
+133724......in
+133727......ver: 2
+133728......<button x="66" y="57" w="345" h="38" id="v10_26_1"/>
+133729......<button x="118" y="95" w="293" h="38" id="v10_26_2"/>
+133730......<button x="66" y="95" w="52" h="38" id="v10_27_1"/>
+133730......<button x="66" y="132" w="345" h="38" id="v10_27_2"/>
+133731......<button x="66" y="170" w="345" h="38" id="v10_27_3"/>
+133732......<button x="147" y="207" w="264" h="38" id="v10_27_4"/>
+133733......<button x="66" y="207" w="81" h="38" id="v10_28_1"/>
+133734......<button x="66" y="245" w="345" h="38" id="v10_28_2"/>
+133735......<button x="136" y="282" w="275" h="38" id="v10_28_3"/>
+133736......<button x="66" y="282" w="70" h="38" id="v10_29_1"/>
+133737......<button x="66" y="320" w="345" h="38" id="v10_29_2"/>
+133738......<button x="66" y="357" w="345" h="38" id="v10_30_1"/>
+133739......<button x="180" y="395" w="231" h="38" id="v10_30_2"/>
+133740......<button x="66" y="395" w="114" h="38" id="v10_31_1"/>
+133741......<button x="66" y="432" w="345" h="38" id="v10_31_2"/>
+133742......<button x="66" y="470" w="345" h="38" id="v10_31_3"/>
+133743......<button x="207" y="507" w="204" h="38" id="v10_31_4"/>
+133744......<button x="66" y="507" w="141" h="38" id="v10_32_1"/>
+133745......<button x="113" y="545" w="299" h="38" id="v10_32_2"/>
+133746......<button x="66" y="545" w="47" h="38" id="v10_33_1"/>
+133747......<button x="66" y="582" w="345" h="38" id="v10_33_2"/>
+134430......false
+134495......false

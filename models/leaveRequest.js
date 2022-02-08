@@ -35,10 +35,10 @@ const LeaveRequest = mongoose.model("LeaveRequest", leaveRequestSchema);
 
 function validateRequest(leaveRequest) {
   const schema = {
-    employeeId: Joi.string().required(),
-    leaveId: Joi.string().required(),
-    startDate: Joi.date().required(),
-    returnDate: Joi.date().required(),
+    employeeId: Joi.string(),
+    leaveId: Joi.string(),
+    startDate: Joi.date(),
+    returnDate: Joi.date(),
 
     // photo: Joi.string().required(),
   };

@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Leave } = require("../models/leave");
+const { LeaveTypes } = require("../models/leave");
 const { Employee } = require("../models/employee");
 
 const { LeaveRequest, validateRequest } = require("../models/leaveRequest");
@@ -12,7 +12,7 @@ router.post("/", async (req, res) => {
   const employee = await Employee.findById(req.body.employeeId);
   if (!employee) return res.status(404).send("Invalid employee Id");
 
-  const leave = await Leave.findById(req.body.leaveId);
+  const leave = await LeaveTypes.findById(req.body.leaveId);
   if (!leave) return res.status(404).send("Invalid leave Id");
 
   // calculating days taken from startDate - return date
@@ -25,10 +25,10 @@ router.post("/", async (req, res) => {
 
   // check if employee is requesting more than the allowed days
 
-  if (dateInNumber > leave.numberOfDays)
-    return res
-      .status(400)
-      .send("you are requesting more than the allowed days");
+  // if (dateInNumber > leave.numberOfDays)
+  //   return res
+  //     .status(400)
+  //     .send("you are requesting more than the allowed days");
 
   // calculate avaliable leave days for employee
 
@@ -87,8 +87,8 @@ router.post("/", async (req, res) => {
     },
     startDate: req.body.startDate,
     returnDate: req.body.returnDate,
-    requestedDays: dateInNumber,
-    takenDays: takenDays,
+    // requestedDays: dateInNumber,
+    // takenDays: takenDays,
   });
 
   await leaveRequest.save();

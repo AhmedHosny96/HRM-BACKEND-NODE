@@ -16,8 +16,8 @@ router.get("/", async (req, res) => {
   res.send(employees);
 });
 
-router.get("/names", async (req, res) => {
-  const employees = await Employee.find({}, { _id: 0 }).select("fullName");
+router.get("/active", async (req, res) => {
+  const employees = await Employee.find({ status: "Active" });
   res.send(employees);
 });
 
@@ -36,10 +36,20 @@ router.post("/", async (req, res) => {
   // if (error) return res.status(400).send(error.details[0].message);
 
   // check if employee already exists in the db
+  let idTaken = await Employee.findOne({
+    employeeId: req.body.employeeId,
+  });
+  if (idTaken) return res.status(400).send("employee ID is taken ");
 
-  let employee = await Employee.findOne({ fullName: req.body.fullName });
-  if (employee) return res.status(400).send("Employee already registered");
+  let emailTaken = await Employee.findOne({
+    email: req.body.email,
+  });
+  if (emailTaken) return res.status(400).send("email is taken ");
 
+  let phoneNumberTaken = await Employee.findOne({
+    phoneNumber: req.body.phoneNumber,
+  });
+  if (phoneNumberTaken) return res.status(400).send("phone number is taken ");
   //validate if the branchID is valid
 
   const branch = await Branch.findById(req.body.branchId);

@@ -49,43 +49,45 @@ router.post("/", uploads.single("attachment"), async (req, res) => {
   // check if documents already exists
 
   let documents = await Document.findOne({
+    "employee._id": req.body.employeeId,
     documentType: req.body.documentType,
   });
-  if (documents) return res.status(400).send("documents Already Exists");
+  if (documents)
+    return res.status(400).send("Document exists for this employee");
 
   const employee = await Employee.findById(req.body.employeeId);
   if (!employee) return res.status(404).send("Invalid employee Id");
 
   // create the new documents
   documents = new Document({
-    // employee: {
-    //   _id: employee._id,
-    //   employeeId: employee.employeeId,
-    //   fullName: employee.fullName,
-    //   phoneNumber: employee.phoneNumber,
-    //   branch: {
-    //     _id: employee.branch._id,
-    //     status: employee.branch.status,
-    //     name: employee.branch.name,
-    //     city: employee.branch.city,
-    //     region: employee.branch.region,
-    //   },
-    //   job: {
-    //     _id: employee.job._id,
-    //     code: employee.job.code,
-    //     name: employee.job.name,
-    //     department: employee.job.department,
-    //   },
-    email: employee.email,
-    salary: employee.salary,
-    status: employee.status,
-    employmentStatus: employee.employmentStatus,
-    gender: employee.gender,
-    // },
+    employee: {
+      _id: employee._id,
+      employeeId: employee.employeeId,
+      fullName: employee.fullName,
+      phoneNumber: employee.phoneNumber,
+      branch: {
+        _id: employee.branch._id,
+        status: employee.branch.status,
+        name: employee.branch.name,
+        city: employee.branch.city,
+        region: employee.branch.region,
+      },
+      job: {
+        _id: employee.job._id,
+        code: employee.job.code,
+        name: employee.job.name,
+        department: employee.job.department,
+      },
+      email: employee.email,
+      salary: employee.salary,
+      status: employee.status,
+      employmentStatus: employee.employmentStatus,
+      gender: employee.gender,
+    },
 
     documentType: req.body.documentType,
     details: req.body.details,
-    attachment: req.file.originalname,
+    attachment: req.body.attachment,
   });
   await documents.save();
 

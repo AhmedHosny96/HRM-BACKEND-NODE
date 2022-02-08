@@ -1,5 +1,6 @@
 const express = require("express");
 const Joi = require("joi-browser");
+const otpGenerator = require("otp-generator");
 const bcrypt = require("bcrypt");
 const { User, validateUser } = require("../models/user");
 const router = express.Router();
@@ -25,10 +26,10 @@ router.post("/", async (req, res) => {
   if (!validPassword)
     return res.status(400).send("Invalid Username or Password");
 
-  if (user.status != "Active")
-    return res
-      .status(400)
-      .send("User not verified yet , please check your email");
+  // if (user.status != "Verified")
+  //   return res
+  //     .status(400)
+  //     .send("User not verified yet , please check your email");
 
   // generate auth token and return the token
   const token = user.generateAuthToken();
@@ -47,6 +48,15 @@ function validate(user) {
 // user sign up
 
 router.post("/create", async (req, res) => {
+  // generate one-time password
+
+  const oneTimePassword = otpGenerator.generate(8, {
+    digits: true,
+    alphabets: true,
+    upperCase: false,
+    specialChars: false,
+  });
+
   //validate inputs
 
   const { error } = validateUser(req.body);
@@ -89,18 +99,19 @@ router.post("/create", async (req, res) => {
 
     username: req.body.username,
     email: req.body.email,
-    password: await bcrypt.hash(req.body.password, salt),
+    password: await bcrypt.hash(oneTimePassword, salt),
   });
 
   // create token and generate header
   const token = user.generateAuthToken();
 
   user.token = token;
+  user.firstLogin = 1;
   await user.save();
 
   //email link
 
-  const emailLink = `${process.env.NODE_URL}/${token}`;
+  const emailLink = `${process.env.URL}/${token}`;
 
   // send confirmation email to user
 
@@ -309,7 +320,8 @@ router.post("/create", async (req, res) => {
                             color: #555;
                           "
                         >
-                          Dear ${req.body.username} your are  registered in RMFI HRM system To verify click the button below.
+                          Dear ${req.body.username} your are  registered in RMFI HRM system your One-time password is :- 
+                          <p> ${oneTimePassword}</p>
                         </div>
                       </td>
                     </tr>
@@ -335,7 +347,6 @@ router.post("/create", async (req, res) => {
                           <tr>
                             <td
                               align="center"
-                              bgcolor="#800080"
                               role="presentation"
                               style="
                                 border: none;
@@ -346,22 +357,9 @@ router.post("/create", async (req, res) => {
                               "
                               valign="middle"
                             >
-                              <a
-                                style="
-                                  
-                                  color: #ffffff;
-                                  font-family: Montserrat,Trebuchet MS,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Tahoma,sans-serif;
-                                  font-size: 15px;
-                                  font-weight: normal;
-                                  line-height: 120%;
-                                  margin: 0;
-                                  border-radius : 10px;
-                                  text-decoration: none;
-                                  text-transform: none;
-                                "
-                                href=${emailLink}
-                              > 
-                                Verify Account
+                          
+                           
+                              
                               </a>
                             </td>
                           </tr>
@@ -516,6 +514,23 @@ router.post("/create", async (req, res) => {
   res.send(others);
 });
 
+// chnage password route
+
+router.post("/change-password/:id", async (req, res) => {
+  let user = await User.findById(req.params.id);
+
+  if (!user) return res.status(400).send("Invalid user");
+
+  const salt = await bcrypt.genSalt(10);
+  user.password = await bcrypt.hash(req.body.password, salt);
+  user.firstLogin = 0;
+  user.status = "Verified";
+
+  await user.save();
+
+  res.send("User successfully verified");
+});
+
 // confirmation route
 
 router.post("/confirm/:token", async (req, res) => {
@@ -523,7 +538,7 @@ router.post("/confirm/:token", async (req, res) => {
 
   if (!user) return res.status(404).send("Invalid token or expired.");
 
-  user.status = "Active";
+  user.status = "Verified";
 
   // change the password
   user.password = await bcrypt.hash(req.body.password, 10);

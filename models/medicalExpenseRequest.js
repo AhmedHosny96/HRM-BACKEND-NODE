@@ -84,7 +84,11 @@ function validateRequest(medicalRequest) {
     invoice: Joi.any(),
     medicalCertificate: Joi.any(),
     amount: Joi.number().required(),
-
+    taken: Joi.number(),
+    status: Joi.string(),
+    medicalExpense: Joi.object(),
+    employee: Joi.object(),
+    __v: Joi.number(),
     // photo: Joi.string().required(),
   };
   return Joi.validate(medicalRequest, schema);

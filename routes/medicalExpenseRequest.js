@@ -59,67 +59,65 @@ router.post("/", async (req, res) => {
 
   coveredExpense.filter((expense) => {
     taken = expense.totalTaken;
-
     // console.log(currentEmployee._id);
   });
 
-  if (
-    taken == medicalExpense.allowedAmount &&
-    currentEmployee._id == medicalExpenseRequest.employee._id
-  ) {
-    return res.status(400).send("You have exceeded the limit");
-  } else {
-    medicalExpenseRequest = new MedicalExpenseRequest({
-      medicalExpense: {
-        _id: medicalExpense._id,
-        name: medicalExpense.name,
-        allowedFor: medicalExpense.allowedFor,
-        allowedAmount: medicalExpense.allowedAmount,
-      },
-      employee: {
-        _id: employee._id,
-        employeeId: employee.employeeId,
-        fullName: employee.fullName,
-        phoneNumber: employee.phoneNumber,
-        branch: {
-          _id: employee.branch._id,
-          status: employee.branch.status,
-          name: employee.branch.name,
-          city: employee.branch.city,
-          region: employee.branch.region,
-        },
-        job: {
-          _id: employee.job._id,
-          code: employee.job.code,
-          name: employee.job.name,
-          department: employee.job.department,
-        },
+  const employeeMedicalExp = await MedicalExpenseRequest.findOne({
+    "employee._id": req.body.employeeId,
+  });
 
-        email: employee.email,
-        salary: employee.salary,
-        status: employee.status,
-        employmentStatus: employee.employmentStatus,
-        gender: employee.gender,
+  console.log(employeeMedicalExp);
+
+  medicalExpenseRequest = new MedicalExpenseRequest({
+    medicalExpense: {
+      _id: medicalExpense._id,
+      name: medicalExpense.name,
+      allowedFor: medicalExpense.allowedFor,
+      allowedAmount: medicalExpense.allowedAmount,
+    },
+    employee: {
+      _id: employee._id,
+      employeeId: employee.employeeId,
+      fullName: employee.fullName,
+      phoneNumber: employee.phoneNumber,
+      branch: {
+        _id: employee.branch._id,
+        status: employee.branch.status,
+        name: employee.branch.name,
+        city: employee.branch.city,
+        region: employee.branch.region,
+      },
+      job: {
+        _id: employee.job._id,
+        code: employee.job.code,
+        name: employee.job.name,
+        department: employee.job.department,
       },
 
-      patient: req.body.patient,
-      name: req.body.name,
-      gender: req.body.gender,
-      age: req.body.age,
-      hospitalName: req.body.hospitalName,
-      location: req.body.location,
-      card: req.body.card,
-      prescription: req.body.prescription,
-      invoice: req.body.invoice,
-      medicalCertificate: req.body.medicalCertificate,
-      amount: req.body.amount,
-      taken: taken,
-    });
+      email: employee.email,
+      salary: employee.salary,
+      status: employee.status,
+      employmentStatus: employee.employmentStatus,
+      gender: employee.gender,
+    },
 
-    await medicalExpenseRequest.save();
+    patient: req.body.patient,
+    name: req.body.name,
+    gender: req.body.gender,
+    age: req.body.age,
+    hospitalName: req.body.hospitalName,
+    location: req.body.location,
+    card: req.body.card,
+    prescription: req.body.prescription,
+    invoice: req.body.invoice,
+    medicalCertificate: req.body.medicalCertificate,
+    amount: req.body.amount,
+    taken: taken,
+  });
 
-    res.send(medicalExpenseRequest);
-  }
+  await medicalExpenseRequest.save();
+
+  res.send(medicalExpenseRequest);
 });
 //updating existing leave
 router.put("/:id", async (req, res) => {

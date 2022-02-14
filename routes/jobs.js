@@ -2,18 +2,19 @@ const router = require("express").Router();
 const { Job, Validate } = require("../models/job");
 const validateId = require("../middlewares/validateObjectId");
 
-router.get("/", async (req, res) => {
+const auth = require("../middlewares/auth");
+router.get("/", auth, async (req, res) => {
   const jobs = await Job.find().sort({ name: 1 });
   res.send(jobs);
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", auth, async (req, res) => {
   const jobs = await Job.findById(req.params.id);
   res.send(jobs);
 });
 
 // adding new jobs
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   //validate inputs
   const { error } = Validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -35,7 +36,7 @@ router.post("/", async (req, res) => {
 });
 
 //updating existing job
-router.put("/:id", validateId, async (req, res) => {
+router.put("/:id", auth, validateId, async (req, res) => {
   // validate
   const { error } = Validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -53,7 +54,7 @@ router.put("/:id", validateId, async (req, res) => {
 
 // deleting job
 
-router.delete("/:id", validateId, async (req, res) => {
+router.delete("/:id", auth, validateId, async (req, res) => {
   const job = await Job.findByIdAndRemove(req.params.id);
   res.send(job);
 });

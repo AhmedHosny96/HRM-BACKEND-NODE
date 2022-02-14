@@ -7,25 +7,25 @@ const auth = require("../middlewares/auth");
 const router = express.Router();
 
 // getting all branches
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
   const branches = await Branch.find({}).sort({ name: 1 });
   res.send(branches);
 });
 //get active branches only
 
-router.get("/open", async (req, res) => {
+router.get("/open", auth, async (req, res) => {
   const branches = await Branch.find({ status: "Open" });
   res.send(branches);
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", auth, async (req, res) => {
   //find by id
   const branch = await Branch.findById(req.params.id);
   res.send(branch);
 });
 
 // creating new branch
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   // validate the inputs
   const { error } = Validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -50,7 +50,7 @@ router.post("/", async (req, res) => {
 
 //updating existing branches
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
   //validate
   const { error } = Validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -79,7 +79,7 @@ router.put("/:id", async (req, res) => {
   res.send(branch);
 });
 // deleting a branch
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
   // find the branch by id and remove
   const branch = await Branch.findByIdAndRemove(req.params.id);
   res.send(branch);

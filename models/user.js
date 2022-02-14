@@ -50,10 +50,12 @@ userSchema.methods.generateAuthToken = function () {
       isAdmin: this.isAdmin,
       firstLogin: this.firstLogin,
       status: this.status,
+      token: this.token,
 
       // userRole: this.userRole,
     },
-    process.env.JWT_SEC
+    process.env.JWT_SEC,
+    { expiresIn: "3d" }
   );
   return token;
 };

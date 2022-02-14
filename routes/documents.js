@@ -3,6 +3,7 @@ const path = require("path");
 const router = require("express").Router();
 const { Document, validateDocument } = require("../models/document");
 const { Employee } = require("../models/employee");
+const auth = require("../middlewares/auth");
 
 // multer configuration for document upload
 const uploadStorage = multer.diskStorage({
@@ -33,7 +34,7 @@ router.get("/", async (req, res) => {
 
 //get documents by employee
 
-router.get("/:employeeId", async (req, res) => {
+router.get("/:employeeId", auth, async (req, res) => {
   const employeeId = await Employee.findById(req.params.employeeId);
   //find by id
   const documents = await Document.find({ "employee._id": employeeId });
@@ -41,7 +42,7 @@ router.get("/:employeeId", async (req, res) => {
 });
 
 // creating new document
-router.post("/", uploads.single("attachment"), async (req, res) => {
+router.post("/", auth, uploads.single("attachment"), async (req, res) => {
   // validate the inputs
   const { error } = validateDocument(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -96,7 +97,7 @@ router.post("/", uploads.single("attachment"), async (req, res) => {
 
 //updating existing documents
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
   //validate
   const { error } = Validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -122,7 +123,7 @@ router.put("/:id", async (req, res) => {
   res.send(documents);
 });
 // deleting a document
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
   // find the document by id and remove
   const documents = await Document.findByIdAndRemove(req.params.id);
   res.send(documents);

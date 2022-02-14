@@ -6,6 +6,7 @@ const { User, validateUser } = require("../models/user");
 const router = express.Router();
 const { Employee } = require("../models/employee");
 const sendMail = require("../utils/sendMail");
+const auth = require("../middlewares/auth");
 // getting currently logged in user
 
 router.get("/me", async (req, res) => {
@@ -34,7 +35,7 @@ router.post("/", async (req, res) => {
   // generate auth token and return the token
   const token = user.generateAuthToken();
 
-  res.header("token", token).send(token);
+  res.send(token);
 });
 
 function validate(user) {
@@ -47,14 +48,14 @@ function validate(user) {
 
 // user sign up
 
-router.post("/create", async (req, res) => {
+router.post("/create", auth, async (req, res) => {
   // generate one-time password
 
   const oneTimePassword = otpGenerator.generate(8, {
     digits: true,
     alphabets: true,
-    upperCase: false,
-    specialChars: false,
+    upperCase: true,
+    specialChars: true,
   });
 
   //validate inputs
@@ -516,37 +517,36 @@ router.post("/create", async (req, res) => {
 
 // chnage password route
 
-router.post("/change-password/:id", async (req, res) => {
-  let user = await User.findById(req.params.id);
-
-  if (!user) return res.status(400).send("Invalid user");
+router.post("/change-password/:token", auth, async (req, res) => {
+  let user = await User.findOne({ token: req.params.token });
 
   const salt = await bcrypt.genSalt(10);
   user.password = await bcrypt.hash(req.body.password, salt);
   user.firstLogin = 0;
   user.status = "Verified";
+  user.token = undefined;
 
   await user.save();
 
+  const token = user.generateAuthToken();
   res.send("User successfully verified");
 });
-
 // confirmation route
 
-router.post("/confirm/:token", async (req, res) => {
-  const user = await User.findOne({ token: req.params.token });
+// router.post("/confirm/:token", async (req, res) => {
+//   const user = await User.findOne({ token: req.params.token });
 
-  if (!user) return res.status(404).send("Invalid token or expired.");
+//   if (!user) return res.status(404).send("Invalid token or expired.");
 
-  user.status = "Verified";
+//   user.status = "Verified";
 
-  // change the password
-  user.password = await bcrypt.hash(req.body.password, 10);
-  // remove the token from DB
-  user.token = undefined;
-  await user.save();
+//   // change the password
+//   user.password = await bcrypt.hash(req.body.password, 10);
+//   // remove the token from DB
+//   user.token = undefined;
+//   await user.save();
 
-  res.send("User verified successfully");
-});
+//   res.send("User verified successfully");
+// });
 
 module.exports = router;

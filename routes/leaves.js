@@ -1,8 +1,8 @@
 const router = require("express").Router();
 const { validateLeave, LeaveTypes } = require("../models/leave");
-
+const auth = require("../middlewares/auth");
 // adding new jobs
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   //validate inputs
   const { error } = validateLeave(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -24,7 +24,7 @@ router.post("/", async (req, res) => {
 });
 
 //updating existing leave
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
   // validate
   const { error } = validateLeave(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -40,17 +40,17 @@ router.put("/:id", async (req, res) => {
   res.send(leave);
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
   const leave = await LeaveTypes.findByIdAndRemove(req.params.id);
   res.send(leave);
 });
 
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
   const leaves = await LeaveTypes.find({}).sort({ leaveType: 1 });
   res.send(leaves);
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", auth, async (req, res) => {
   const leaves = await LeaveTypes.findById(req.params.id);
   res.send(leaves);
 });

@@ -1,7 +1,4 @@
 const express = require("express");
-
-const moment = require("moment");
-
 const validateObjectId = require("../middlewares/validateObjectId"); // validating req.param.id
 const { Employee, Validate } = require("../models/employee");
 const { Branch } = require("../models/branch");
@@ -11,7 +8,7 @@ const router = express();
 
 //getting employees
 
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
   const employees = await Employee.find();
   res.send(employees);
 });
@@ -23,14 +20,14 @@ router.get("/active", async (req, res) => {
 
 //getting employee
 
-router.get("/:id", validateObjectId, async (req, res) => {
+router.get("/:id", auth, validateObjectId, async (req, res) => {
   const employee = await Employee.findById(req.params.id);
   res.send(employee);
 });
 
 // creating new employee
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   // validate inputs
   // const { error } = Validate(req.body);
   // if (error) return res.status(400).send(error.details[0].message);
@@ -92,7 +89,7 @@ router.post("/", async (req, res) => {
 
 //updating employee records
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
   //validate input fileds
 
   const { error } = Validate(req.body);

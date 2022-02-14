@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Joi = require("joi-browser");
 const { jobSchema } = require("./job");
 const { branchSchema } = require("./branch");
+const { join } = require("lodash");
 
 const recruitmentSchema = new mongoose.Schema(
   {
@@ -44,6 +45,11 @@ function validateRecruitment(recruitment) {
     employementType: Joi.string().required(),
     jobDescription: Joi.string(),
     status: Joi.string(),
+    job: Joi.object(),
+    branch: Joi.object(),
+    createdAt: Joi.date(),
+    updatedAt: Joi.date(),
+    __v: Joi.number(),
   };
   return Joi.validate(recruitment, schema);
 }

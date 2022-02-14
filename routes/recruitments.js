@@ -2,22 +2,22 @@ const router = require("express").Router();
 const { Recruitment, validateRecruitment } = require("../models/recruitment");
 const { Job } = require("../models/job");
 const { Branch } = require("../models/branch");
-
+const auth = require("../middlewares/auth");
 // getting all recruitments
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
   const recruitment = await Recruitment.find({}).sort({ status: -1 });
   res.send(recruitment);
 });
 //get recruitement
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", auth, async (req, res) => {
   //find by id
   const recruitment = await Recruitment.findById(req.params.id);
   res.send(recruitment);
 });
 
 // process recruitement request
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   // validate the inputs
   const { error } = validateRecruitment(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -59,7 +59,7 @@ router.post("/", async (req, res) => {
 
 //updating existing recruitments
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
   //validate
   const { error } = validateRecruitment(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -88,7 +88,7 @@ router.put("/:id", async (req, res) => {
   res.send(recruitment);
 });
 // deleting a recruitment
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
   // find the recruitment by id and remove
   const recruitment = await Recruitment.findByIdAndRemove(req.params.id);
   res.send(recruitment);

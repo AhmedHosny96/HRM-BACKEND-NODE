@@ -1,19 +1,20 @@
 const router = require("express").Router();
 const { MedicalExpense } = require("../models/medicalExpense");
 // const validateId = require("../middlewares/validateObjectId");
+const auth = require("../middlewares/auth");
 
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
   const medicalExpense = await MedicalExpense.find();
   res.send(medicalExpense);
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", auth, async (req, res) => {
   const medicalExpense = await MedicalExpense.findById(req.params.id);
   res.send(medicalExpense);
 });
 
 // adding new medicalExpense
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   //validate inputs
   //   const { error } = Validate(req.body);
   //   if (error) return res.status(400).send(error.details[0].message);
@@ -38,7 +39,7 @@ router.post("/", async (req, res) => {
 });
 
 //updating existing job
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
   // validate
   const { error } = Validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -56,7 +57,7 @@ router.put("/:id", async (req, res) => {
 
 // deleting job
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
   const medicalExpense = await MedicalExpense.findByIdAndRemove(req.params.id);
   res.send(medicalExpense);
 });

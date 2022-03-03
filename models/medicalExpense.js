@@ -9,8 +9,8 @@ const medicalExpenseSchema = mongoose.Schema(
       type: Number,
     },
   },
-  { collation: { locale: "en", strength: 2 } },
-  { timestamp: true }
+  { timestamps: true },
+  { collation: { locale: "en", strength: 2 } }
 );
 
 const MedicalExpense = mongoose.model("medicalExpense", medicalExpenseSchema);

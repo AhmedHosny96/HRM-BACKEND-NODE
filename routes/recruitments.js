@@ -65,13 +65,8 @@ router.put("/:id", auth, async (req, res) => {
   if (error) return res.status(400).send(error.details[0].message);
   // check if recruitment exists
 
-  let recruitment = await Recruitment.findOne({
-    name: req.body.name,
-    region: req.body.region,
-    city: req.body.city,
-    status: req.body.status,
-  });
-  if (recruitment) return res.status(400).send("recruitment Already Exist");
+  let recruitment = await Recruitment.findOne({});
+  // if (recruitment) return res.status(400).send("recruitment Already Exist");
 
   // update
   recruitment = await Recruitment.findByIdAndUpdate(

@@ -28,6 +28,8 @@ router.post("/", auth, async (req, res) => {
     code: req.body.code,
     name: req.body.name,
     department: req.body.department,
+    description: req.body.description,
+    qualification: req.body.qualification,
   });
   // save data to DB
   await job.save();

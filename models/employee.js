@@ -52,6 +52,9 @@ const employeeSchema = new mongoose.Schema({
   employmentStatus: {
     type: String,
   },
+  jobExitAttachment: {
+    type: String,
+  },
 });
 
 const Employee = mongoose.model("Employee", employeeSchema);
@@ -69,7 +72,7 @@ function validateEmployee(employee) {
     startDate: Joi.date(),
     employmentStatus: Joi.string(),
     salary: Joi.number().required(),
-    // image: Joi.any().required(),
+    jobExitAttachment: Joi.any(),
     branch: Joi.object(),
     job: Joi.object(),
     __v: Joi.number(),

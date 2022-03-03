@@ -27,6 +27,11 @@ router.post("/", async (req, res) => {
   if (!validPassword)
     return res.status(400).send("Invalid Username or Password");
 
+  if (user.status == "Deactivated")
+    return res
+      .status(403)
+      .send("user is deactivated, please contact your system admin.");
+
   // if (user.status != "Verified")
   //   return res
   //     .status(400)
@@ -48,7 +53,7 @@ function validate(user) {
 
 // user sign up
 
-router.post("/create", auth, async (req, res) => {
+router.post("/create", async (req, res) => {
   // generate one-time password
 
   const oneTimePassword = otpGenerator.generate(8, {
@@ -100,19 +105,19 @@ router.post("/create", auth, async (req, res) => {
 
     username: req.body.username,
     email: req.body.email,
+    role: req.body.role,
     password: await bcrypt.hash(oneTimePassword, salt),
   });
 
   // create token and generate header
   const token = user.generateAuthToken();
-
   user.token = token;
   user.firstLogin = 1;
   await user.save();
 
   //email link
 
-  const emailLink = `${process.env.URL}/${token}`;
+  // const emailLink = `${process.env.URL}/${token}`;
 
   // send confirmation email to user
 
@@ -512,41 +517,24 @@ router.post("/create", auth, async (req, res) => {
   // exclude the password from the response
 
   const { password, ...others } = user._doc;
-  res.send(others);
+  res.header("x-auth-token", token).send(others);
 });
 
 // chnage password route
 
-router.post("/change-password/:token", auth, async (req, res) => {
-  let user = await User.findOne({ token: req.params.token });
+router.post("/change-password/:id", async (req, res) => {
+  let user = await User.findById(req.params.id);
 
   const salt = await bcrypt.genSalt(10);
   user.password = await bcrypt.hash(req.body.password, salt);
   user.firstLogin = 0;
-  user.status = "Verified";
+  user.status = "Active";
   user.token = undefined;
 
   await user.save();
 
-  const token = user.generateAuthToken();
   res.send("User successfully verified");
 });
 // confirmation route
-
-// router.post("/confirm/:token", async (req, res) => {
-//   const user = await User.findOne({ token: req.params.token });
-
-//   if (!user) return res.status(404).send("Invalid token or expired.");
-
-//   user.status = "Verified";
-
-//   // change the password
-//   user.password = await bcrypt.hash(req.body.password, 10);
-//   // remove the token from DB
-//   user.token = undefined;
-//   await user.save();
-
-//   res.send("User verified successfully");
-// });
 
 module.exports = router;

@@ -20,7 +20,7 @@ router.post("/", async (req, res) => {
   );
   if (!medicalExpense) return res.status(404).send("Invalid medical claim");
 
-  // check if leaveRequest already exists
+  // check if employee has pending  request exists
   let medicalExpenseRequest = await MedicalExpenseRequest.findOne({
     "employee._id": req.body.employeeId,
     "medicalExpense._id": req.body.medicalExpenseId,
@@ -30,8 +30,7 @@ router.post("/", async (req, res) => {
     return res
       .status(400)
       .send("Oops there is pending medical request for this employee!");
-
-  // this blocks the employee to request more than the limit at once
+  // this blocks the employee to request more than the limit at once // medicalexpense.allowed == 6000
   if (req.body.amount > medicalExpense.allowedAmount)
     return res
       .status(400)
@@ -41,32 +40,38 @@ router.post("/", async (req, res) => {
 
   // keep tracks of each employee request
 
-  // currenEmployee
+  let medicalRequesEmployee = await MedicalExpenseRequest.findOne({
+    "employee._id": req.body.employeeId,
+    "medicalExpense._id": req.body.medicalExpenseId,
+  });
 
-  let currentEmployee = await Employee.findById(req.body.employeeId);
-
+  console.log(medicalRequesEmployee);
   let taken;
-
+  let emp_id;
   const coveredExpense = await MedicalExpenseRequest.aggregate([
     // { $match: { _id: { $eq: req.body.employeeId } } },
+
     {
       $group: {
         _id: "$employee._id",
         totalTaken: { $sum: "$amount" },
       },
     },
+    // {},
   ]);
 
   coveredExpense.filter((expense) => {
     taken = expense.totalTaken;
-    // console.log(currentEmployee._id);
+    emp_id = expense._id;
   });
 
-  const employeeMedicalExp = await MedicalExpenseRequest.findOne({
-    "employee._id": req.body.employeeId,
-  });
-
-  console.log(employeeMedicalExp);
+  if (
+    taken >= medicalExpense.allowedAmount &&
+    medicalRequesEmployee &&
+    medicalRequesEmployee.employee._id.equals(emp_id)
+  ) {
+    return res.status(400).send("You have exceeded the limit");
+  }
 
   medicalExpenseRequest = new MedicalExpenseRequest({
     medicalExpense: {

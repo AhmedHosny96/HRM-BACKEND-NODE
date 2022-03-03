@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
   },
   username: {
     type: String,
-    minlength: 5,
+    minlength: 3,
   },
   email: {
     type: String,
@@ -23,13 +23,14 @@ const userSchema = new mongoose.Schema({
 
   status: {
     type: String,
-    enum: ["Not verified", "Verified", "Deactivated"],
+    enum: ["Not verified", "Active", "Deactivated"],
     default: "Not verified",
   },
 
-  isAdmin: {
-    type: Boolean,
-    default: false,
+  role: {
+    type: String,
+    enum: ["User", "Hr officer", "Admin"],
+    default: "user",
   },
   firstLogin: {
     type: Number,
@@ -47,7 +48,7 @@ userSchema.methods.generateAuthToken = function () {
       _id: this.id,
       username: this.username,
       email: this.email,
-      isAdmin: this.isAdmin,
+      role: this.role,
       firstLogin: this.firstLogin,
       status: this.status,
       token: this.token,
@@ -64,10 +65,11 @@ const User = mongoose.model("user", userSchema);
 
 function validateUser(user) {
   const schema = {
-    employeeId: Joi.string().required(),
-    username: Joi.string().min(4).required(),
-    email: Joi.string().min(10).email().required(),
-    password: Joi.string(),
+    employeeId: Joi.string(),
+    username: Joi.string().min(4),
+    email: Joi.string().min(10).email(),
+    role: Joi.string(),
+    status: Joi.string(),
   };
   return Joi.validate(user, schema);
 }

@@ -15,6 +15,16 @@ const jobSchema = new mongoose.Schema(
       minlength: 2,
       // maxlength: 255,
     },
+    description: {
+      type: String,
+      minlength: 2,
+      // maxlength: 255,
+    },
+    qualification: {
+      type: String,
+      minlength: 2,
+      // maxlength: 255,
+    },
   },
   { timestamps: true }
 );
@@ -26,6 +36,8 @@ function validateJob(job) {
     code: Joi.string().required().min(2),
     name: Joi.string().required().min(2),
     department: Joi.string().required(),
+    description: Joi.string().required(),
+    qualification: Joi.string().required(),
     // photo: Joi.string().required(),
   };
   return Joi.validate(job, schema);

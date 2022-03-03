@@ -80,6 +80,7 @@ router.post("/", auth, async (req, res) => {
     status: req.body.status,
     startDate: req.body.startDate,
     employmentStatus: req.body.employmentStatus,
+    jobExitAttachment: req.body.jobExitAttachment,
   });
   // saving data to db
   await employee.save();
@@ -127,6 +128,7 @@ router.put("/:id", auth, async (req, res) => {
     gender: req.body.gender,
     status: req.body.status,
     employmentStatus: req.body.employmentStatus,
+    jobExitAttachment: req.body.jobExitAttachment,
   });
 
   if (employee) return res.status(400).send("Employee already registered");

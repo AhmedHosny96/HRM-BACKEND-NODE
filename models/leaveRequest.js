@@ -3,8 +3,6 @@ const Joi = require("joi-browser");
 const { employeeSchema } = require("./employee");
 const { leaveSchema } = require("./leave");
 
-const oneDay = 24 * 60 * 60 * 1000;
-
 const leaveRequestSchema = new mongoose.Schema(
   {
     employee: { type: employeeSchema },
@@ -27,8 +25,7 @@ const leaveRequestSchema = new mongoose.Schema(
       default: "Pending",
     },
   },
-  { collation: { locale: "en", strength: 2 } },
-  { timestamps: true }
+  { collation: { locale: "en", strength: 2 } }
 );
 
 const LeaveRequest = mongoose.model("LeaveRequest", leaveRequestSchema);
@@ -39,8 +36,7 @@ function validateRequest(leaveRequest) {
     leaveId: Joi.string(),
     startDate: Joi.date(),
     returnDate: Joi.date(),
-
-    // photo: Joi.string().required(),
+    status: Joi.string(),
   };
   return Joi.validate(leaveRequest, schema);
 }

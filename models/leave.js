@@ -24,10 +24,6 @@ function validateLeave(leave) {
     leaveType: Joi.string().required(),
     numberOfDays: Joi.number().required(),
     leaveGroup: Joi.string().required(),
-    // photo: Joi.string().required(),
-    createdAt: Joi.date(),
-    updatedAt: Joi.date(),
-    __v: Joi.number(),
   };
   return Joi.validate(leave, schema);
 }

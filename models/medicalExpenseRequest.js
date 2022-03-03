@@ -59,9 +59,9 @@ const medicalExpenseRequestSchema = mongoose.Schema(
       default: 0,
     },
   },
+  { timestamps: true },
 
-  { collation: { locale: "en", strength: 2 } },
-  { timeStamp: true }
+  { collation: { locale: "en", strength: 2 } }
 );
 
 const MedicalExpenseRequest = mongoose.model(

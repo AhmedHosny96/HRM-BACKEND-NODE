@@ -1,40 +1,26 @@
 const router = require("express").Router();
-const { LeaveTypes } = require("../models/leave");
-const { Employee } = require("../models/employee");
 
-const { LeaveRequest, validateRequest } = require("../models/leaveRequest");
+const { Employee } = require("../models/employee");
+const {
+  EmployeeInfo,
+  validateEmployeeInfo,
+} = require("../models/employeeInfo");
 
 router.post("/", async (req, res) => {
   // validate the inputs
-  const { error } = validateRequest(req.body);
+  const { error } = validateEmployeeInfo(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   let employee = await Employee.findById(req.body.employeeId);
   if (!employee) return res.status(404).send("Invalid employee Id");
 
-  const leave = await LeaveTypes.findById(req.body.leaveId);
-  if (!leave) return res.status(404).send("Invalid leave Id");
-
-  // calculating days taken from startDate - return date
-  let oneDay = 24 * 60 * 60 * 1000;
-
-  var startDate = new Date(req.body.startDate);
-  var returnDate = new Date(req.body.returnDate);
-
-  const dateInNumber = Math.round(Math.abs((startDate - returnDate) / oneDay));
-
-  // check if leaveRequest already exists
-  let leaveRequest = await LeaveRequest.findOne({
-    "employee._id": req.body.employeeId,
-    "leave._id": req.body.leaveId,
+  let employeeInfo = await EmployeeInfo.findOne({
+    _id: req.body.employeeId,
   });
-  if (leaveRequest && leaveRequest.status !== "Approved")
-    return res
-      .status(400)
-      .send("There is Pending leave request for this employee!");
 
+  if (employeeInfo) return res.status(400).send("employee record exists");
   // create the new leaveRequest
-  leaveRequest = new LeaveRequest({
+  employeeInfo = new EmployeeInfo({
     employee: {
       _id: employee._id,
       employeeId: employee.employeeId,
@@ -60,30 +46,27 @@ router.post("/", async (req, res) => {
       employmentStatus: employee.employmentStatus,
       gender: employee.gender,
     },
-    leave: {
-      _id: leave._id,
-      leaveType: leave.leaveType,
-      numberOfDays: leave.numberOfDays,
-      leaveGroup: leave.leaveGroup,
-    },
-    startDate: req.body.startDate,
-    returnDate: req.body.returnDate,
-    status: req.body.status,
-    requestedDays: dateInNumber,
+
+    maritalStatus: req.body.maritalStatus,
+    spouseName: req.body.spouseName,
+    children: req.body.children,
+    contactPersonName: req.body.contactPersonName,
+    contactPersonPhone: req.body.contactPersonPhone,
+
     // takenDays: takenDays,
   });
 
-  await leaveRequest.save();
+  await employeeInfo.save();
 
-  res.send(leaveRequest);
+  res.send(employeeInfo);
 });
 //updating existing leave
 router.put("/:id", async (req, res) => {
   // validate
-  const { error } = validateRequest(req.body);
+  const { error } = validateEmployeeInfo(req.body);
   if (error) return res.status(400).send(error.details[0].message);
   // update obj
-  const leaveRequest = await LeaveRequest.findByIdAndUpdate(
+  const leaveRequest = await EmployeeInfo.findByIdAndUpdate(
     req.params.id,
     {
       $set: req.body, // so default values are overridden
@@ -95,14 +78,14 @@ router.put("/:id", async (req, res) => {
 });
 
 router.delete("/:id", async (req, res) => {
-  const leaveRequest = await LeaveRequest.findByIdAndRemove(req.params.id);
-  res.send(leaveRequest);
+  const employeeInfo = await EmployeeInfo.findByIdAndRemove(req.params.id);
+  res.send(employeeInfo);
 });
 
 // getting all leaveRequest
 router.get("/", async (req, res) => {
-  const leaveRequest = await LeaveRequest.find();
-  res.send(leaveRequest);
+  const employeeInfo = await EmployeeInfo.find();
+  res.send(employeeInfo);
 });
 
 //get pending leaveRequests

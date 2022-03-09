@@ -29,8 +29,6 @@ const port = process.env.PORT || 5000;
 if (!config.get("jwtPrivateKey"))
   console.log("FATAL ERROR : jwtPrivateKey is not defined");
 
-console.log(process.env.JWT_SEC);
-
 const server = app.listen(port, () => {
   winston.info(`listening on port ${port}`);
 });

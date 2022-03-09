@@ -80,7 +80,8 @@ router.post("/", auth, async (req, res) => {
     status: req.body.status,
     startDate: req.body.startDate,
     employmentStatus: req.body.employmentStatus,
-    jobExitAttachment: req.body.jobExitAttachment,
+    term: req.body.term,
+    expirationDate: req.body.expirationDate,
   });
   // saving data to db
   await employee.save();

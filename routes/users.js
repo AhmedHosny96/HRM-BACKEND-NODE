@@ -31,7 +31,7 @@ router.put("/:id", auth, async (req, res) => {
     { new: true }
   );
 
-  res.send(user);
+  res.status(200).send(user);
 });
 
 router.delete("/:id", auth, async (req, res) => {

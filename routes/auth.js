@@ -520,7 +520,7 @@ router.post("/create", async (req, res) => {
   // exclude the password from the response
 
   const { password, ...others } = user._doc;
-  res.header("x-auth-token", token).send(others);
+  res.status(201).header("x-auth-token", token).send(others);
 });
 
 // chnage password route
@@ -953,7 +953,7 @@ router.post("/reset-password/:id", async (req, res) => {
 
   await user.save();
 
-  res.send("password reset successfull");
+  res.status(200).send("password reset successfull");
 });
 
 module.exports = router;

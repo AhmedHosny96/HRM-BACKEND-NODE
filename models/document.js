@@ -21,9 +21,9 @@ const Document = mongoose.model("Document", documentSchema);
 
 function validateDocument(document) {
   const schema = {
-    employeeId: Joi.string().required().min(2),
-    documentType: Joi.string().required().min(2),
-    details: Joi.string().required(),
+    employeeId: Joi.string(),
+    documentType: Joi.string(),
+    details: Joi.string(),
     attachment: Joi.any(),
   };
   return Joi.validate(document, schema);

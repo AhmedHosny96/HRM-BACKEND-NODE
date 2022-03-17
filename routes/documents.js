@@ -9,11 +9,22 @@ const auth = require("../middlewares/auth");
 const uploadStorage = multer.diskStorage({
   // define destination
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, "../uploads/"));
+    cb(
+      null,
+      path.join(__dirname, "../../hrm-react/public/employee_documents/")
+    );
   },
   //define how filename will look like
   filename: function (req, file, cb) {
-    cb(null, file.originalname);
+    console.log(req.body.employee);
+    cb(
+      null,
+      req.body.employeeId +
+        "_" +
+        req.body.documentType +
+        "_" +
+        file.originalname
+    );
   },
 });
 
@@ -22,7 +33,7 @@ const uploads = multer({
   storage: uploadStorage,
   //file limit
   limits: {
-    fieldSize: 1024 * 1024 * 4,
+    fieldSize: 1024 * 1024 * 10,
   },
 });
 
@@ -85,11 +96,11 @@ router.post("/", auth, uploads.single("attachment"), async (req, res) => {
       employmentStatus: employee.employmentStatus,
       gender: employee.gender,
     },
-
     documentType: req.body.documentType,
     details: req.body.details,
-    attachment: req.body.attachment,
+    attachment: req.file.filename,
   });
+
   await documents.save();
 
   res.send(documents);

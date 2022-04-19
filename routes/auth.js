@@ -73,9 +73,9 @@ router.post("/create", async (req, res) => {
 
   let user = await User.findOne({
     email: req.body.email,
-    username: req.body.username,
   });
-  if (user) return res.status(400).send("User Already exists");
+
+  if (user) return res.status(400).send("Email or username is taken");
 
   // hash , salt the password then save the user object
   const salt = await bcrypt.genSalt(10);
@@ -118,13 +118,8 @@ router.post("/create", async (req, res) => {
   user.firstLogin = 1;
   await user.save();
 
-  //email link
-
-  // const emailLink = `${process.env.URL}/${token}`;
-
-  // send confirmation email to user
-
   // send the email
+
   sendMail(
     req.body.email,
     "Rays Microfinance HRM",
@@ -330,7 +325,7 @@ router.post("/create", async (req, res) => {
                           "
                         >
                           Dear ${req.body.username} your are  registered in RMFI HRM system your One-time password is :- 
-                          <p> ${oneTimePassword}</p>
+                          <p>${oneTimePassword}</p>
                         </div>
                       </td>
                     </tr>

@@ -26,6 +26,8 @@ require("./startup/routes")(app);
 
 const port = process.env.PORT || 5000;
 
+console.log(process.env.NODE_ENV);
+
 const server = app.listen(port, () => {
   winston.info(`listening on port ${port}`);
 });
